@@ -1,0 +1,316 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"w",
+				"width"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "app/index.html",
+			"settings":
+			{
+				"buffer_size": 1894,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/styles/main.scss",
+			"settings":
+			{
+				"buffer_size": 696,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/styles/main.css.map",
+			"settings":
+			{
+				"buffer_size": 448,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/E/labs/intertap",
+		"/E/labs/intertap/app",
+		"/E/labs/intertap/app/scripts",
+		"/E/labs/intertap/app/styles"
+	],
+	"file_history":
+	[
+		"/E/labs/intertap/app/styles/main.css",
+		"/D/Program Files/Koala/app/locales/repositories.json",
+		"/D/Program Files/Koala/package.json",
+		"/E/labs/intertap/node_modules/grunt-sass/package.json",
+		"/E/labs/intertap/bower.json",
+		"/E/labs/intertap/css/style.css",
+		"/E/labs/intertap/index.html",
+		"/E/labs/intertap/scripts/canvas.js",
+		"/E/labs/intertap/app/styles/main.scss",
+		"/E/labs/intertap/css/reset.css",
+		"/E/labs/intertap/firefly.js",
+		"/E/labs/intertap/css/style",
+		"/D/wamp/www/orion9/inc/works.inc.php",
+		"/D/wamp/www/orion9/scripts/_custom/gallery.xml",
+		"/D/wamp/www/orion9/lang/ja.php",
+		"/D/wamp/www/orion9/lang/fr.php",
+		"/D/wamp/www/orion9/lang/en.php",
+		"/D/wamp/www/orion9/404.php",
+		"/D/wamp/www/orion9/css/default.css",
+		"/D/wamp/www/orion9/css/default.min.css",
+		"/D/wamp/www/orion9/scripts/_custom/scrollGrid.js",
+		"/H/_new/backup/wamp/www/orion9/scripts/_custom/canvas.js",
+		"/H/www/orion9/lang/ja.php",
+		"/C/Users/Leivvi/Desktop/ja.php",
+		"/H/Nero BackItUp/20150115_001002_7aeccc06-ab72-4a53-b764-5e5d03c7eb10/I/Victoria/Video/Films/The.Butterfly.Effect[2004]DvDrip.Director's.Cut[Eng][Multi-Sub]-Vex/The.Butterfly.Effect[2004]DvDrip.Director's.Cut[Eng][Multi-Sub]-Vex.srt",
+		"/H/Nero BackItUp/20150115_001002_7aeccc06-ab72-4a53-b764-5e5d03c7eb10/I/Victoria/Music/OSTs/Buffy The Vampire Slayer Once More With Feeling OST/00-va-buffy_the_vampire_slayer__once_more_with_feeling-ost-2002-xntp.nfo",
+		"/H/www/orion9/scripts/_custom/scrollGrid.js",
+		"/H/Nero BackItUp/20150115_001002_7aeccc06-ab72-4a53-b764-5e5d03c7eb10/I/Victoria/Video/Films/The.Butterfly.Effect[2004]DvDrip.Director's.Cut[Eng][Multi-Sub]-Vex/Swedish.srt"
+	],
+	"find":
+	{
+		"height": 43.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"pen.js:36",
+			"pen.js:34 ",
+			"con",
+			"xdrif",
+			"stop",
+			"rint2",
+			"destr",
+			"setGallery("
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			""
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "app/index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1894,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1855,
+								1855
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "app/styles/main.scss",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 696,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								423,
+								423
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "app/styles/main.css.map",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 448,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 40.0
+	},
+	"input":
+	{
+		"height": 35.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "intertap.sublime-project",
+	"replace":
+	{
+		"height": 80.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 282.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
