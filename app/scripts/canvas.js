@@ -14,7 +14,7 @@ var clouds = new Array();
 var maxClouds = 1;
 
 var lineMinLength = 50;
-var lineMaxLength = 200;
+var lineMaxLength = 300;
 
 var planet;
 
@@ -24,8 +24,6 @@ $(document).ready(function() {
 	canvas = document.getElementById('canvas_Menu');
 	ctx = canvas.getContext('2d');
 	canvasName = canvas.id;
-
-	initCanvas();
 });
 
 function initCanvas() {
@@ -36,10 +34,10 @@ function initCanvas() {
 		pxs[i].reset();
 	}
 
-	clouds[0] = new Cloud(200, 100, 8, 25, "#453959");
-	clouds[1] = new Cloud(WIDTH/2 + 400, -100, 24, 25, "#453959");
+	//clouds[0] = new Cloud(-100, -100, 24, 25, "#453959");
+	clouds[0] = new Cloud(WIDTH/2, -100, 24, 25, "#453959");
 	//clouds[2] = new Cloud(WIDTH-200, HEIGHT - 400, 10, 25, "#453959");
-	clouds[2] = new Cloud(WIDTH/2 - 500, HEIGHT - 300, 4, 25, "#453959");
+	//clouds[2] = new Cloud(WIDTH/2 - 500, HEIGHT - 300, 4, 25, "#453959");
   
   	for(var i = 0; i < clouds.length; i++) {
 		clouds[i].reset();
@@ -56,6 +54,10 @@ $(window).resize(function() {
 	WIDTH = window.innerWidth;
 	HEIGHT = window.innerHeight;
 	$(canvas).attr('width', WIDTH).attr('height',HEIGHT);
+
+	for(var i = 0; i < pxs.length; i++) {
+		pxs[i].reset();
+	}
 });
 
 function changeCanvas(newCanvas) {
@@ -80,7 +82,7 @@ function draw() {
 		pxs[i].draw();
 	}
 
-	if(canvasName == "canvas_Menu") ctx.drawImage(planet, WIDTH/2 - 50, HEIGHT/2 - 50);
+	if(canvasName == "canvas_Menu") ctx.drawImage(planet, WIDTH/2, HEIGHT/2 - 50);
 }
 
 function Circle() {
@@ -107,8 +109,8 @@ function Circle() {
 		this.x = (this.s.random ? WIDTH*Math.random() : this.s.xdef);
 		this.y = (this.s.random ? HEIGHT*Math.random() : this.s.ydef);
 		// speed
-		this.dx = (Math.random()*this.s.xmax) * (Math.random() < .5 ? -1 : 1);
-		this.dy = (Math.random()*this.s.ymax) * (Math.random() < .5 ? -1 : 1);
+		this.dx = (Math.random()*this.s.xmax) * 1//(Math.random() < .5 ? -1 : 1);
+		this.dy = (Math.random()*this.s.ymax) * 1//(Math.random() < .5 ? -1 : 1);
 
 		// taille rayon
 		this.r = ((this.s.rmax-1)*Math.random()) + 1;
@@ -132,7 +134,7 @@ function Circle() {
 		else if(this.rt >= this.hl) this.reset();
 
 		// this.rt/this.hl = current decay time
-		var newo = 1 - (this.rt/this.hl);
+		var newo = 1;// - (this.rt/this.hl);
 
 		ctx.beginPath();
 		ctx.arc(this.x, this.y, this.r, 0, Math.PI*2);
@@ -145,7 +147,7 @@ function Circle() {
 		g.addColorStop(this.stop, 'rgba(255,255,255,'+(newo*.25)+')');
 		g.addColorStop(1, 'rgba(255,255,255,0)');
 		ctx.fillStyle = g;*/
-    ctx.fillStyle= 'rgba(255,255,255,'+newo+')';
+    	ctx.fillStyle= 'rgba(255,255,255,'+newo+')';
 
 		ctx.fill();
 	}
@@ -156,8 +158,8 @@ function Circle() {
 		this.y += (this.rt/this.hl)*this.dy;
 
 		// change direction when reached the edge
-		if(this.x > WIDTH || this.x < 0) this.dx *= -1;
-		if(this.y > HEIGHT || this.y < 0) this.dy *= -1;
+		if(this.x > (WIDTH+this.r) || this.x < 0) this.reset();//this.dx *= -1;
+		if(this.y > (HEIGHT+this.r) || this.y < 0) this.reset();//this.dy *= -1;
 	}
 
 	this.getX = function() { return this.x; }

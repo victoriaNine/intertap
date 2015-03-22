@@ -32,6 +32,22 @@ button {
   text-shadow: none;
 }
 
+a {
+  color: #F37785;
+  text-decoration: none;
+}
+
+.browsehappy {
+  position: fixed;
+  top: 0;
+  z-index: 9999;
+  background: #FFF;
+  background: rgba(255,255,255,.25);
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
 #container {
   overflow: hidden;
   position: absolute;
@@ -135,13 +151,9 @@ button {
   font-family: "Pacifico", sans-serif;
   text-transform:none;
   text-align: center;
-  font-size: 36px;
-
+  font-size: 42px;
   margin-top:40px;
-}
-
-#menu {
-  margin-top: 100px;
+  margin-bottom: 94px;
 }
 
 #menu li {
@@ -157,7 +169,7 @@ button {
   &.disabled {
     color:rgba(255,255,255,.25);
     cursor: default;
-  };
+  }
 
   & hr {
     content:"";
@@ -170,6 +182,10 @@ button {
     margin: 0;
     border: none;
   }
+}
+
+#menu li span {
+  display: inline-block;
 }
 
 /***/
@@ -338,6 +354,7 @@ button {
   top: 0;
   left: 0;
   z-index: -1;
+  visibility: hidden;
 
   transition:opacity .2s ease-out;
 }
@@ -347,6 +364,8 @@ button {
 }
 
 .btStart.animate:before {
+  visibility: visible;
+
   -webkit-animation:clickStartPulse 1s ease-out forwards;
   animation:clickStartPulse 1s ease-out forwards;
 }
@@ -383,6 +402,7 @@ button {
 .panel .registration input {
   width: 100%;
   padding: 15px;
+  padding-left:50px;
   display: block;
   position: relative;
   outline: none;
@@ -401,44 +421,56 @@ button {
 }
 
 ::-webkit-input-placeholder {
-   transition:color .2s ease-out;
+  transition:color .2s ease-out;
 }
 
 :focus::-webkit-input-placeholder {
-   color: #666;
+  color: #666;
 }
 
 :-moz-placeholder {
-   transition:color .2s ease-out;
+  transition:color .2s ease-out;
 }
 
 :focus:-moz-placeholder { /* Firefox 18- */
-   color: #666; 
+  color: #666; 
 }
 
 ::-moz-placeholder {
-   transition:color .2s ease-out;
+  transition:color .2s ease-out;
 }
 
 :focus::-moz-placeholder {  /* Firefox 19+ */
-   color: #666;
+  color: #666;
 }
 
 ::-ms-input-placeholder {
-   transition:color .2s ease-out;
+  transition:color .2s ease-out;
 }
 
 :focus:-ms-input-placeholder {  
-   color: #666;
+  color: #666;
 }
 
-.panel .registration span {
+.panel .registration > span {
   display: block;
   position: relative;
   margin-bottom: 30px;
 }
 
 .panel .registration label {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  pointer-events:none;
+  color: #999;
+  overflow: hidden;
+}
+
+.panel .registration label:before {
+  content:"";
   display: block;
   width: 0%;
   height: 100%;
@@ -450,10 +482,70 @@ button {
   transition:width .2s ease-out;
 }
 
-.panel .registration input:focus+label {
-  width:100%;
+.panel .registration input:focus+label:before {
+    width:100%;
 }
 
+.registration label .title {
+  white-space: nowrap;
+  padding: 15px;
+  position: absolute;
+  text-transform: none;
+  font-size: 18px;
+  height: 100%;
+  box-sizing: border-box;
+  opacity: 1;
+
+  transition:all .2s ease-out;
+}
+
+.registration input:focus+label .title,
+.registration .filled .title {
+    opacity: 0;
+    transform: translateX(50px);
+}
+
+.registration label .fa-lg {
+  color:#FFF;
+  padding: 15px;
+  position: absolute;
+  height: 100%;
+  box-sizing: border-box;
+  transform: translateX(-50px);
+  opacity: 0;
+
+  transition:all .2s ease-out;
+}
+
+.registration input:focus+label .fa-lg,
+.registration .filled .fa-lg {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.registration .filled .fa-lg {
+  color:#999;
+}
+
+.registration .filled input:focus+label .fa-lg {
+  color:#FFF;
+}
+
+.registration label .fa-stack {
+  padding: 5px;
+}
+
+.registration label .fa-question-circle {
+  font-size: 0.75em;
+  line-height: 1em;
+  width: 1em;
+  height: 1em;
+  right: .25em;
+  bottom: .3em;
+  border-radius: 50%;
+  z-index: 2;
+  left: auto;
+}
 
 /***/
 #screen_Play.invite .matchmaking:not(.invite),
