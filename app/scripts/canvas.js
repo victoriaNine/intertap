@@ -16,7 +16,10 @@ var maxClouds = 1;
 var lineMinLength = 50;
 var lineMaxLength = 300;
 
-var planet;
+var planet, gas, moon, craters, meteor, loadedImg = 0, maxImgs = 5,
+	planet_x, planet_y, gas_x, gas_y,
+	moon_x, moon_y, craters_x, craters_y,
+	meteor_x, meteor_y, meteorFalling = false, meteorDelay = -1;
 
 $(document).ready(function() {
 	WIDTH = window.innerWidth;
@@ -24,40 +27,65 @@ $(document).ready(function() {
 	canvas = document.getElementById('canvas_Menu');
 	ctx = canvas.getContext('2d');
 	canvasName = canvas.id;
+
+	planet = new Image();
+	planet.src = "images/planet.svg";
+	planet.onload = function() {
+		loadedImg++;
+		if(loadedImg == maxImgs) $(document).trigger("imgLoaded");
+	};
+
+	gas = new Image();
+	gas.src = "images/gas.svg";
+	gas.onload = function() {
+		loadedImg++;
+		if(loadedImg == maxImgs) $(document).trigger("imgLoaded");
+	};
+
+	moon = new Image();
+	moon.src = "images/moon.svg";
+	moon.onload = function() {
+		loadedImg++;
+		if(loadedImg == maxImgs) $(document).trigger("imgLoaded");
+	};
+
+	craters = new Image();
+	craters.src = "images/craters.svg";
+	craters.onload = function() {
+		loadedImg++;
+		if(loadedImg == maxImgs) $(document).trigger("imgLoaded");
+	};
+
+	meteor = new Image();
+	meteor.src = "images/meteor.svg";
+	meteor.onload = function() {
+		loadedImg++;
+		if(loadedImg == maxImgs) $(document).trigger("imgLoaded");
+	};
 });
 
-function initCanvas() {
+function initCanvas(onResize) {
 	$(canvas).attr('width', WIDTH).attr('height',HEIGHT);
+
+	clouds[0] = new Cloud(WIDTH/2, -100, 24, 25, "#453959");
+  	for(var i = 0; i < clouds.length; i++) {
+		clouds[i].reset();
+	}
 
 	for(var i = 0; i < maxPixies; i++) {
 		pxs[i] = new Circle();
 		pxs[i].reset();
 	}
 
-	//clouds[0] = new Cloud(-100, -100, 24, 25, "#453959");
-	clouds[0] = new Cloud(WIDTH/2, -100, 24, 25, "#453959");
-	//clouds[2] = new Cloud(WIDTH-200, HEIGHT - 400, 10, 25, "#453959");
-	//clouds[2] = new Cloud(WIDTH/2 - 500, HEIGHT - 300, 4, 25, "#453959");
-  
-  	for(var i = 0; i < clouds.length; i++) {
-		clouds[i].reset();
-	}
-
-	planet = new Image();
-	planet.onload = function() {
-		drawInterval = setInterval(draw,rint);
-	}
-	planet.src = "images/planet.svg";
+	setPositions();
+	if(!onResize) drawInterval = setInterval(draw,rint);
 }
 
 $(window).resize(function() {
 	WIDTH = window.innerWidth;
 	HEIGHT = window.innerHeight;
-	$(canvas).attr('width', WIDTH).attr('height',HEIGHT);
 
-	for(var i = 0; i < pxs.length; i++) {
-		pxs[i].reset();
-	}
+	initCanvas(true);
 });
 
 function changeCanvas(newCanvas) {
@@ -67,6 +95,18 @@ function changeCanvas(newCanvas) {
 
 	clearInterval(drawInterval);
 	initCanvas();
+}
+
+function setPositions() {
+	planet_x = WIDTH/2;
+	planet_y = HEIGHT/2 - 25;
+	gas_x = planet_x;
+	gas_y = planet_y + 50;
+
+	moon_x = WIDTH/2 - (moon.width + 100);
+	moon_y = HEIGHT - (moon.height + 50);
+	craters_x = moon_x;
+	craters_y = moon_y + 50;
 }
 
 function draw() {
@@ -82,8 +122,87 @@ function draw() {
 		pxs[i].draw();
 	}
 
-	if(canvasName == "canvas_Menu") ctx.drawImage(planet, WIDTH/2, HEIGHT/2 - 50);
+	if(!meteorFalling && meteorDelay == -1) {
+		meteor_x = parseInt(Math.random() * WIDTH) - meteor.width;
+		meteor_y = parseInt(Math.random() * HEIGHT) - meteor.height;
+
+		Math.random() < .5 ? meteor_y = -meteor.height : meteor_x = -meteor.width;
+		meteorDelay = (parseInt(Math.random() * 15 + 5) * 1000);
+	}
+	else if(meteorFalling) {
+		ctx.drawImage(meteor, meteor_x, meteor_y);
+		meteor_x += 1.25;
+		meteor_y += 1.25;;
+
+		if(meteor_x > (WIDTH+meteor.width) || meteor_y > (HEIGHT+meteor.height))
+			meteorFalling = false;
+	}
+	else if(meteorDelay > -1) {
+		setTimeout(function() {
+			meteorFalling = true;
+			meteorDelay = -1;
+
+		}, meteorDelay);
+	}
+
+	if(canvasName == "canvas_Menu") {
+		ctx.drawImage(planet, planet_x, planet_y);
+
+		ctx.save();
+		drawPlanetMask(ctx, planet_x, planet_y);
+		ctx.clip();
+
+		ctx.save();
+		ctx.rotate(20*Math.PI/180);
+		ctx.drawImage(gas, gas_x - (gas.width / 2 + 180), gas_y - gas.height);
+		ctx.restore();
+		ctx.restore();
+
+		gas_x++;
+		if(gas_x >= planet_x + gas.width / 2) gas_x = planet_x;
+	}
+	if(canvasName == "canvas_Play") {
+		ctx.drawImage(moon, moon_x, moon_y);
+
+		ctx.save();
+		ctx.beginPath();
+		ctx.arc(moon_x + moon.width/2, moon_y + moon.height/2, (moon.width / 2), 0, Math.PI*2);
+		ctx.closePath();
+		ctx.clip();
+
+		ctx.drawImage(craters, craters_x, craters_y);
+		ctx.restore();
+
+		craters_x--;
+		if(craters_x <= moon_x - craters.width / 2) craters_x = moon_x;
+	}
 }
+
+function drawPlanetMask(ctx, startX, startY) {
+	ctx.save();
+	ctx.lineCap = 'butt';
+	ctx.lineJoin = 'miter';
+	ctx.miterLimit = 4;
+	ctx.translate(startX,startY);
+	ctx.beginPath();
+	ctx.moveTo(158.808,266.189);
+	ctx.bezierCurveTo(181.284,346.279,251.244,408.04600000000005,339.012,415.92100000000005);
+	ctx.bezierCurveTo(394.269,420.87600000000003,446.379,403.55400000000003,486.485,371.37800000000004);
+	ctx.bezierCurveTo(434.803,364.499,377.559,351.64200000000005,318.497,332.69800000000004);
+	ctx.bezierCurveTo(259.207,313.686,204.968,290.758,158.808,266.189);
+	ctx.moveTo(557.531,160.302);
+	ctx.bezierCurveTo(536.777,77.555,465.635,13.124,375.865,5.072);
+	ctx.bezierCurveTo(318.496,-0.07399999999999984,264.51800000000003,18.801,223.845,53.379000000000005);
+	ctx.bezierCurveTo(205.49099999999999,68.983,189.84199999999998,87.77700000000002,177.824,109.018);
+	ctx.bezierCurveTo(164.90300000000002,131.853,156.185,157.508,152.77700000000002,185.03);
+	ctx.bezierCurveTo(183.73600000000002,219.06799999999998,248.81900000000002,256.105,328.636,281.702);
+	ctx.bezierCurveTo(418.01300000000003,310.361,500.70500000000004,316.609,542.7660000000001,301.098);
+	ctx.bezierCurveTo(551.854,282.522,558.253,262.313,561.4250000000001,240.91000000000003);
+	ctx.bezierCurveTo(562.0100000000001,236.95300000000003,562.5010000000001,232.961,562.8620000000001,228.92600000000002);
+	ctx.bezierCurveTo(564.99,205.238,563.01,182.136,557.531,160.302);
+	ctx.closePath();
+	ctx.restore();
+};
 
 function Circle() {
 	this.s = {
@@ -140,7 +259,7 @@ function Circle() {
 		ctx.arc(this.x, this.y, this.r, 0, Math.PI*2);
 		ctx.closePath();
 
-    // outside gradient radius = radius * new opacity
+    	// outside gradient radius = radius * new opacity
 		/*var cr = this.r*newo;
 		g = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, (cr <= 0 ? 1 : cr));
 		g.addColorStop(0, 'rgba(255,255,255,'+newo+')');
@@ -165,12 +284,6 @@ function Circle() {
 	this.getX = function() { return this.x; }
 	this.getY = function() { return this.y; }
 }
-
-function drawCloud(startX, startY, lineNb, radius, style) {
-	var testCloud = new Cloud(startX, startY, lineNb, radius, style);
-	testCloud.reset();
-	testCloud.draw();
-};
 
 function Cloud(startX, startY, lineNb, radius, style) {
 	this.init = function(startX, startY, lineNb, radius, style) {

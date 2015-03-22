@@ -6,6 +6,10 @@ body, html {
   text-transform: uppercase;
   user-select: none; }
 
+a {
+  color: #F37785;
+  text-decoration: none; }
+
 button {
   background: none;
   border: none;
@@ -27,10 +31,6 @@ button {
   background: #FF7987;
   color: #FFF;
   text-shadow: none; }
-
-a {
-  color: #F37785;
-  text-decoration: none; }
 
 .browsehappy {
   position: fixed;
@@ -141,7 +141,7 @@ a {
   overflow: hidden;
   cursor: pointer; }
   #menu li.disabled {
-    color: rgba(255, 255, 255, 0.25);
+    color: rgba(255, 255, 255, 0.5);
     cursor: default; }
   #menu li hr {
     content: "";
@@ -310,7 +310,19 @@ a {
     transform: scale(1); }
   10% {
     transform: scale(0.75); } }
+@keyframes clickStart {
+  0%, 20%, 100% {
+    transform: scale(1); }
+  10% {
+    transform: scale(0.75); } }
 @-webkit-keyframes clickStartPulse {
+  0%, 20% {
+    opacity: .75;
+    transform: scale(1); }
+  100% {
+    opacity: 0;
+    transform: scale(1.25); } }
+@keyframes clickStartPulse {
   0%, 20% {
     opacity: .75;
     transform: scale(1); }
@@ -333,8 +345,15 @@ a {
 #screen_Play.registration .panel {
   height: 400px; }
 
+.panel .registration > span {
+  display: block;
+  position: relative;
+  margin-bottom: 32px;
+  height: 50px; }
+
 .panel .registration input {
   width: 100%;
+  height: 100%;
   padding: 15px;
   padding-left: 50px;
   display: block;
@@ -377,11 +396,6 @@ a {
 :focus:-ms-input-placeholder {
   color: #666; }
 
-.panel .registration > span {
-  display: block;
-  position: relative;
-  margin-bottom: 30px; }
-
 .panel .registration label {
   display: block;
   width: 100%;
@@ -415,6 +429,7 @@ a {
   height: 100%;
   box-sizing: border-box;
   opacity: 1;
+  line-height: 20px;
   transition: all .2s ease-out; }
 
 .registration input:focus + label .title,
@@ -446,15 +461,17 @@ a {
 .registration label .fa-stack {
   padding: 5px; }
 
+.registration label .fa-asterisk {
+  top: 0; }
+
 .registration label .fa-question-circle {
   font-size: 0.75em;
   line-height: 1em;
   width: 1em;
   height: 1em;
   right: .25em;
-  bottom: .3em;
+  bottom: .5em;
   border-radius: 50%;
-  z-index: 2;
   left: auto; }
 
 /***/
@@ -580,7 +597,36 @@ a {
     transform: scale(1); }
   30% {
     transform: scale(0.75); } }
+@keyframes clickMenuTxt {
+  0%, 20%, 50%, 100% {
+    transform: scale(1); }
+  30% {
+    transform: scale(0.75); } }
 @-webkit-keyframes clickMenu {
+  0% {
+    transform: scale(0.75);
+    border: 32px solid rgba(255, 255, 255, 0.5);
+    opacity: 0; }
+  10% {
+    opacity: 1; }
+  20% {
+    transform: scale(1);
+    border: 32px solid rgba(255, 255, 255, 0.8); }
+  30% {
+    transform: scale(0.5); }
+  40% {
+    border: 32px solid rgba(255, 255, 255, 0.8); }
+  50% {
+    opacity: 1; }
+  80% {
+    transform: scale(1.25);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    opacity: .4; }
+  100% {
+    transform: scale(1.25);
+    border: 0px solid rgba(255, 255, 255, 0.8);
+    opacity: 0; } }
+@keyframes clickMenu {
   0% {
     transform: scale(0.75);
     border: 32px solid rgba(255, 255, 255, 0.5);

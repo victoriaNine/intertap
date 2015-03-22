@@ -3,8 +3,10 @@ var $currentScreen,
 	$isTransitioning = false;
 
 $(document).ready(function() {
-	$requestScreen = "Menu";
-	switchScreen();
+	 $(document).on("imgLoaded", function() {
+		$requestScreen = "Menu";
+		switchScreen();
+	});
 });
 
 function setTransition(transition) {
