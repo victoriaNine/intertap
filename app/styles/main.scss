@@ -63,8 +63,8 @@ button {
     background: #FFF;
     z-index: 9999;
     opacity: 0;
-    pointer-events:none;
     top:0;
+    pointer-events:none;
 
     transition:opacity .75s ease;
   }
@@ -72,6 +72,14 @@ button {
   &.white:after {
     opacity:1;
   }
+}
+
+html.ie10 #container:after {
+  width:0%;
+}
+
+html.ie10 #container.white:after {
+  width:100%;
 }
 
 .screen {
@@ -488,7 +496,6 @@ button {
   height: 100%;
   position: absolute;
   top: 0;
-  pointer-events:none;
   background: #999;
 
   transition:width .2s ease-out;
