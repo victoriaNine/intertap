@@ -7,7 +7,7 @@ var drawInterval;
 
 var g;
 var pxs = new Array();
-var maxPixies = 50;
+var maxPixies;
 var rint = 50;
 
 var clouds = new Array();
@@ -16,8 +16,8 @@ var maxClouds = 1;
 var lineMinLength = 50;
 var lineMaxLength = 300;
 
-var planet, gas, moon, craters, meteor, loadedImg = 0, maxImgs = 5,
-	planet_x, planet_y, gas_x, gas_y,
+var planet, gas, moon, craters, meteor,
+	planet_x, planet_y, planet_rotate = 0, planet_dirRotate = 1, gas_x, gas_y,
 	moon_x, moon_y, craters_x, craters_y,
 	meteor_x, meteor_y, meteorFalling = false, meteorDelay = -1;
 
@@ -30,38 +30,18 @@ $(document).ready(function() {
 
 	planet = new Image();
 	planet.src = "images/planet.svg";
-	planet.onload = function() {
-		loadedImg++;
-		if(loadedImg == maxImgs) $(document).trigger("imgLoaded");
-	};
 
 	gas = new Image();
 	gas.src = "images/gas.svg";
-	gas.onload = function() {
-		loadedImg++;
-		if(loadedImg == maxImgs) $(document).trigger("imgLoaded");
-	};
 
 	moon = new Image();
 	moon.src = "images/moon.svg";
-	moon.onload = function() {
-		loadedImg++;
-		if(loadedImg == maxImgs) $(document).trigger("imgLoaded");
-	};
 
 	craters = new Image();
 	craters.src = "images/craters.svg";
-	craters.onload = function() {
-		loadedImg++;
-		if(loadedImg == maxImgs) $(document).trigger("imgLoaded");
-	};
 
 	meteor = new Image();
 	meteor.src = "images/meteor.svg";
-	meteor.onload = function() {
-		loadedImg++;
-		if(loadedImg == maxImgs) $(document).trigger("imgLoaded");
-	};
 });
 
 function initCanvas(onResize) {
@@ -72,6 +52,7 @@ function initCanvas(onResize) {
 		clouds[i].reset();
 	}
 
+	maxPixies = WIDTH >= 966 ? 50 : 25;
 	for(var i = 0; i < maxPixies; i++) {
 		pxs[i] = new Circle();
 		pxs[i].reset();
@@ -82,10 +63,12 @@ function initCanvas(onResize) {
 }
 
 $(window).resize(function() {
-	WIDTH = window.innerWidth;
-	HEIGHT = window.innerHeight;
+	if($("input:focus").length < 1) {
+		WIDTH = window.innerWidth;
+		HEIGHT = window.innerHeight;
 
-	initCanvas(true);
+		initCanvas(true);
+	}
 });
 
 function changeCanvas(newCanvas) {
@@ -98,13 +81,13 @@ function changeCanvas(newCanvas) {
 }
 
 function setPositions() {
-	planet_x = WIDTH/2;
-	planet_y = HEIGHT/2 - 25;
+	planet_x = WIDTH > 480 ? WIDTH/2 : WIDTH/2 - 100;
+	planet_y = WIDTH > 480 ? HEIGHT/2 - 25 : HEIGHT/2 - 50;
 	gas_x = planet_x;
 	gas_y = planet_y + 50;
 
-	moon_x = WIDTH/2 - (moon.width + 100);
-	moon_y = HEIGHT - (moon.height + 50);
+	moon_x = WIDTH > 480 ? WIDTH/2 - (moon.width + 100) : WIDTH/2 - moon.width;
+	moon_y = WIDTH > 480 ? HEIGHT - (moon.height + 50) : HEIGHT - moon.height + 50;
 	craters_x = moon_x;
 	craters_y = moon_y + 50;
 }
@@ -146,16 +129,33 @@ function draw() {
 	}
 
 	if(canvasName == "canvas_Menu") {
+		var maxRotate = 5;
+		var percentRotate = 100 - (Math.abs(planet_rotate) * 100) / maxRotate;
+		// START A
+		ctx.save();
+		ctx.translate(planet_x + planet.width/2, planet_y + planet.height/2);
+		ctx.rotate(planet_rotate*Math.PI/180);
+		planet_rotate += planet_dirRotate * .1 * ((percentRotate / 100) + maxRotate / 20);
+		if(Math.abs(planet_rotate) >= maxRotate) planet_dirRotate *= -1;
+
+		ctx.translate(-(planet_x + planet.width/2), -(planet_y + planet.height/2));
 		ctx.drawImage(planet, planet_x, planet_y);
 
+		// START B
 		ctx.save();
 		drawPlanetMask(ctx, planet_x, planet_y);
 		ctx.clip();
 
+		// START C
 		ctx.save();
 		ctx.rotate(20*Math.PI/180);
 		ctx.drawImage(gas, gas_x - (gas.width / 2 + 180), gas_y - gas.height);
+		// END C
 		ctx.restore();
+		// END B
+		ctx.restore();
+
+		// END A
 		ctx.restore();
 
 		gas_x++;
