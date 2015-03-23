@@ -112,15 +112,15 @@ function draw() {
 		Math.random() < .5 ? meteor_y = -meteor.height : meteor_x = -meteor.width;
 		meteorDelay = (parseInt(Math.random() * 15 + 5) * 1000);
 	}
-	else if(meteorFalling) {
+	if(meteorFalling) {
 		ctx.drawImage(meteor, meteor_x, meteor_y);
 		meteor_x += 1.25;
-		meteor_y += 1.25;;
+		meteor_y += 1.25;
 
 		if(meteor_x > (WIDTH+meteor.width) || meteor_y > (HEIGHT+meteor.height))
 			meteorFalling = false;
 	}
-	else if(meteorDelay > -1) {
+	if(meteorDelay > -1) {
 		setTimeout(function() {
 			meteorFalling = true;
 			meteorDelay = -1;
