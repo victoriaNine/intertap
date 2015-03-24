@@ -31,7 +31,6 @@ var loadingArray = ["images/planet.svg",
 					"//fonts.googleapis.com/css?family=Varela+Round",
 					"//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"]
 
-
 $(document).ready(function() {
 	var loadedFiles = 0;
 	for(var i = 0; i < loadingArray.length; i++) {

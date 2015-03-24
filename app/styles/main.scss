@@ -9,6 +9,7 @@ body, html {
   position: absolute;
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 
 @media (max-device-height: 480px) and (orientation:landscape) {
@@ -62,6 +63,7 @@ button {
   color:       #FFF;
   text-shadow: none;
 }
+
 ::selection {
   background:  #FF7987;
   color:       #FFF;
@@ -142,7 +144,7 @@ html.ie10 #container.white:after {
   top:calc(50% - 640px/2);
 }
 
-@media (max-width : 480px) {
+@media (max-width: 480px) {
   .contents {
     width: 100%;
     height: 100%;
@@ -204,7 +206,7 @@ html.ie10 #container.white:after {
   margin-bottom: 94px;
 }
 
-@media (max-width : 480px) {
+@media (max-width: 480px) {
   #screen_Menu h1 {
     margin-top:30px;
     margin-bottom: 30px;
@@ -237,10 +239,10 @@ html.ie10 #container.white:after {
     margin: 0;
     border: none;
   }
-}
 
-#menu li span {
-  display: inline-block;
+  & span {
+    display: inline-block;
+  }
 }
 
 /***/
@@ -264,7 +266,7 @@ html.ie10 #container.white:after {
     margin-bottom: 20px;
 }
 
-@media (max-width : 480px) {
+@media (max-width: 480px) {
   #screen_Play h1 {font-size: 24px;}
   #screen_Play h2 {display: none;}
 }
@@ -284,6 +286,12 @@ html.ie10 #container.white:after {
   margin-right: auto;
 
   transition: height .5s ease-in-out;
+}
+
+@media (max-width: 480px) {
+  .panel {
+    height:260px;
+  }
 }
 
 .panel button {
@@ -308,6 +316,12 @@ html.ie10 #container.white:after {
   border:1px solid #999;
   color:#999;
   margin-bottom: 50px;
+}
+
+@media (max-width: 480px) {
+  .btRandom, input {
+    margin-bottom: 32px;
+  }
 }
 
 .btInvite {
@@ -348,7 +362,7 @@ html.ie10 #container.white:after {
   transition:all .2s ease-out;
 }
 
-@media (max-width : 480px) {
+@media (max-width: 480px) {
   .btInvite:after {display:none;}
 }
 
@@ -648,7 +662,7 @@ html.ie10 #container.white:after {
   height: 460px;
 }
 
-@media (max-width : 480px) {
+@media (max-width: 480px) {
   #screen_Play.invite .panel {
     height: calc(100% - 200px);
   }
@@ -740,8 +754,8 @@ html.ie10 #container.white:after {
 #friendlist li:hover span,
 #friendlist li.selected span {
   text-indent: 18px;
-  border-top: 1px solid rgba(221,221,221,0);
-  border-bottom: 1px solid rgba(221,221,221,0);
+  border-top: 0px solid #DDD;
+  border-bottom: 0px solid #DDD;
   color:#FFF;
 }
 
@@ -750,7 +764,7 @@ html.ie10 #container.white:after {
 }
 
 #friendlist li:hover+li span {
-  border-top: 1px solid rgba(221,221,221,0);
+  border-top: 0px solid #DDD;
 }
 
 .mCSB_outside + .mCS-minimal.mCSB_scrollTools_vertical,

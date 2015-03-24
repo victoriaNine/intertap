@@ -6,11 +6,11 @@ var canvasName;
 var drawInterval;
 
 var g;
-var pxs = new Array();
+var pxs;
 var maxPixies;
 var rint = 50;
 
-var clouds = new Array();
+var clouds;
 var maxClouds = 1;
 
 var lineMinLength = 50;
@@ -47,11 +47,13 @@ $(document).ready(function() {
 function initCanvas(onResize) {
 	$(canvas).attr('width', WIDTH).attr('height',HEIGHT);
 
+	clouds = new Array();
 	clouds[0] = new Cloud(WIDTH/2, -100, 24, 25, "#453959");
   	for(var i = 0; i < clouds.length; i++) {
 		clouds[i].reset();
 	}
 
+	pxs = new Array();
 	maxPixies = WIDTH >= 966 ? 50 : 25;
 	for(var i = 0; i < maxPixies; i++) {
 		pxs[i] = new Circle();
@@ -69,6 +71,8 @@ $(window).resize(function() {
 
 		initCanvas(true);
 	}
+	else if($("#container").scrollTop() > 0)
+		TweenMax.to($("#container"), .5, {scrollTop:0, ease:Back.easeIn});
 });
 
 function changeCanvas(newCanvas) {
@@ -131,7 +135,7 @@ function draw() {
 	if(canvasName == "canvas_Menu") {
 		var maxRotate = 5;
 		var percentRotate = 100 - (Math.abs(planet_rotate) * 100) / maxRotate;
-		// START A
+		
 		ctx.save();
 		ctx.translate(planet_x + planet.width/2, planet_y + planet.height/2);
 		ctx.rotate(planet_rotate*Math.PI/180);
@@ -141,21 +145,15 @@ function draw() {
 		ctx.translate(-(planet_x + planet.width/2), -(planet_y + planet.height/2));
 		ctx.drawImage(planet, planet_x, planet_y);
 
-		// START B
 		ctx.save();
 		drawPlanetMask(ctx, planet_x, planet_y);
 		ctx.clip();
 
-		// START C
 		ctx.save();
 		ctx.rotate(20*Math.PI/180);
 		ctx.drawImage(gas, gas_x - (gas.width / 2 + 180), gas_y - gas.height);
-		// END C
 		ctx.restore();
-		// END B
 		ctx.restore();
-
-		// END A
 		ctx.restore();
 
 		gas_x++;

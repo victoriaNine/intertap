@@ -7,7 +7,8 @@ body, html {
   user-select: none;
   position: absolute;
   width: 100%;
-  height: 100%; }
+  height: 100%;
+  overflow: hidden; }
 
 @media (max-device-height: 480px) and (orientation: landscape) {
   body:before {
@@ -196,9 +197,8 @@ html.ie10 #container.white:after {
     bottom: 0;
     margin: 0;
     border: none; }
-
-#menu li span {
-  display: inline-block; }
+  #menu li span {
+    display: inline-block; }
 
 /***/
 #screen_Play h1 {
@@ -239,6 +239,9 @@ html.ie10 #container.white:after {
   margin-right: auto;
   transition: height .5s ease-in-out; }
 
+@media (max-width: 480px) {
+  .panel {
+    height: 260px; } }
 .panel button {
   width: 100%;
   padding-top: 20px;
@@ -259,6 +262,9 @@ html.ie10 #container.white:after {
   color: #999;
   margin-bottom: 50px; }
 
+@media (max-width: 480px) {
+  .btRandom, input {
+    margin-bottom: 32px; } }
 .btInvite {
   border: 1px solid #FF7885;
   color: #FF7885; }
@@ -624,15 +630,15 @@ html.ie10 #container.white:after {
 #friendlist li:hover span,
 #friendlist li.selected span {
   text-indent: 18px;
-  border-top: 1px solid rgba(221, 221, 221, 0);
-  border-bottom: 1px solid rgba(221, 221, 221, 0);
+  border-top: 0px solid #DDD;
+  border-bottom: 0px solid #DDD;
   color: #FFF; }
 
 #friendlist.selecting li:not(.selected):hover span {
   color: #222; }
 
 #friendlist li:hover + li span {
-  border-top: 1px solid rgba(221, 221, 221, 0); }
+  border-top: 0px solid #DDD; }
 
 .mCSB_outside + .mCS-minimal.mCSB_scrollTools_vertical,
 .mCSB_outside + .mCS-minimal-dark.mCSB_scrollTools_vertical {
