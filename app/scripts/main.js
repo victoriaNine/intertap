@@ -2,23 +2,19 @@ var $currentScreen,
 	$requestScreen,
 	$isTransitioning = false;
 
-var support = { animations : Modernizr.cssanimations },
-	animEndEventNames = { 'WebkitAnimation' : 'webkitAnimationEnd', 'OAnimation' : 'oAnimationEnd', 'msAnimation' : 'MSAnimationEnd', 'animation' : 'animationend' },
-	animEndEventName = animEndEventNames[ Modernizr.prefixed( 'animation' ) ],
-	onEndAnimation = function( el, callback ) {
-		var onEndCallbackFn = function( ev ) {
-			if( support.animations ) {
-				if( ev.target != this ) return;
-				this.removeEventListener( animEndEventName, onEndCallbackFn );
+var support = {animations : Modernizr.cssanimations},
+	animEndEventNames = {'WebkitAnimation' : 'webkitAnimationEnd', 'OAnimation' : 'oAnimationEnd', 'msAnimation' : 'MSAnimationEnd', 'animation' : 'animationend'},
+	animEndEventName = animEndEventNames[Modernizr.prefixed('animation')],
+	onEndAnimation = function(el, callback) {
+		var onEndCallbackFn = function(ev) {
+			if(support.animations) {
+				if(ev.target != this) return;
+				this.removeEventListener(animEndEventName, onEndCallbackFn);
 			}
-			if( callback && typeof callback === 'function' ) { callback.call(); }
+			if(callback && typeof callback === 'function') callback.call();
 		};
-		if( support.animations ) {
-			el.addEventListener( animEndEventName, onEndCallbackFn );
-		}
-		else {
-			onEndCallbackFn();
-		}
+		if(support.animations) el.addEventListener(animEndEventName, onEndCallbackFn);
+		else onEndCallbackFn();
 	},
 	eventtype = mobilecheck() ? 'touchend' : 'click';
 
@@ -31,8 +27,16 @@ var loadingArray = ["images/planet.svg",
 					"//fonts.googleapis.com/css?family=Varela+Round",
 					"//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"]
 
+/*$(document).on(eventtype+' mousewheel DOMMouseScroll', function(e) {
+	alert(e.target);
+
+    if($(e.target).closest('.mCustomScrollbar').hasClass('scrolling'))
+    	e.preventDefault();
+});*/
+
 $(document).ready(function() {
 	var loadedFiles = 0;
+	
 	for(var i = 0; i < loadingArray.length; i++) {
 		$("<div>").load(loadingArray[i], function() {
 			loadedFiles++;
@@ -57,6 +61,7 @@ $(document).ready(function() {
 
 	if(navigator.appName == 'Microsoft Internet Explorer') {
         var agent = navigator.userAgent;
+
         if(agent.match(/MSIE ([0-9]{1,}[\.0-9]{0,})/) != null) {
             var version = parseFloat( RegExp.$1 );
             $("html").addClass("ie"+version);
@@ -161,18 +166,18 @@ $(document).ready(function() {
 		});
 	});
 
-	$("#screen_Play .panel input").each(function(inputEl) {
-		var inputEl = this;
+	$("#screen_Play .panel input").each(function(el) {
+		var el = this;
 
 		// in case the input is already filled
-		if(inputEl.value.trim() !== '')
-			$(inputEl).parent().addClass("filled");
+		if(el.value.trim() !== '')
+			$(el).parent().addClass("filled");
 
-		$(inputEl).on('focus', function() {
-			$(inputEl).parent().addClass("filled");
+		$(el).on('focus', function() {
+			$(el).parent().addClass("filled");
 		}).on('blur', function() {
-			if(inputEl.value.trim() === '') 
-				$(inputEl).parent().removeClass("filled");
+			if(el.value.trim() === '') 
+				$(el).parent().removeClass("filled");
 		});
 	});
 
@@ -180,7 +185,7 @@ $(document).ready(function() {
 		var el = this;
 
 		$(el).on(eventtype, function() {
-			if(!$(".panel .invite").hasClass("scrolling")) {
+			if(!$(".panel div.invite").hasClass("scrolling")) {
 				if(!$(el).hasClass("selected")) {
 					$("#friendlist li").removeClass("selected");
 					$(el).addClass("selected");
@@ -201,15 +206,17 @@ $(document).ready(function() {
 					setModal("inviteSent", 250, true);
 				}
 			}
+			else {
+				$(".panel div.invite").mCustomScrollbar("stop").removeClass("scrolling");
+			}
 		});
 	});
 });
 
 function setTransition(transition) {
-	var transition;
-
-	var initWidth = $("#menu li hr").css("width");
-	var initLeft = $("#menu li hr").css("left");
+	var transition,
+		initWidth = $("#menu li hr").css("width"),
+		initLeft = $("#menu li hr").css("left");
 
 	if(transition == "screen_Menu_In") {
 		transition = new TimelineMax({paused:true});
@@ -255,8 +262,8 @@ function setTransition(transition) {
 }
 
 function switchScreen() {
-	var transitionDelay = 0;
-	var inTransition, outTransition;
+	var transitionDelay = 0,
+		inTransition, outTransition;
 
 	if($currentScreen == "Menu")
 		outTransition = setTransition("screen_Menu_Out");

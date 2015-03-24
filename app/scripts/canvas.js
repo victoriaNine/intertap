@@ -13,8 +13,8 @@ var rint = 50;
 var clouds;
 var maxClouds = 1;
 
-var lineMinLength = 50;
-var lineMaxLength = 300;
+var lineMinLength = 50,
+	lineMaxLength = 300;
 
 var planet, gas, moon, craters, meteor,
 	planet_x, planet_y, planet_rotate = 0, planet_dirRotate = 1, gas_x, gas_y,
@@ -71,7 +71,7 @@ $(window).resize(function() {
 
 		initCanvas(true);
 	}
-	else if($("#container").scrollTop() > 0)
+	if($("#container").scrollTop() > 0)
 		TweenMax.to($("#container"), .5, {scrollTop:0, ease:Back.easeIn});
 });
 

@@ -1,6 +1,40 @@
 @import url(http://fonts.googleapis.com/css?family=Pacifico);
 @import url(http://fonts.googleapis.com/css?family=Varela+Round);
 
+
+/*=======================*/
+/* MIXINS
+/*=======================*/
+@mixin keyframes($animation-name) {
+  @-webkit-keyframes #{$animation-name} {
+    @content;
+  }
+  @-moz-keyframes #{$animation-name} {
+    @content;
+  }  
+  @-ms-keyframes #{$animation-name} {
+    @content;
+  }
+  @-o-keyframes #{$animation-name} {
+    @content;
+  }  
+  @keyframes #{$animation-name} {
+    @content;
+  }
+}
+
+@mixin animation($str) {
+  -webkit-animation: #{$str};
+  -moz-animation: #{$str};
+  -ms-animation: #{$str};
+  -o-animation: #{$str};
+  animation: #{$str};      
+}
+
+
+/*=======================*/
+/* GENERAL RULES
+/*=======================*/
 body, html {
   font-family: "Varela Round", sans-serif;
   color:#FFF;
@@ -81,6 +115,10 @@ button {
   box-sizing: border-box;
 }
 
+
+/*=======================*/
+/* CONTAINERS
+/*=======================*/
 #container {
   overflow: hidden;
   position: absolute;
@@ -153,6 +191,7 @@ html.ie10 #container.white:after {
   }
 }
 
+/* MODAL BOX ---------*/
 .modalContainer {
   width: 100%;
   height: 100%;
@@ -196,7 +235,10 @@ html.ie10 #container.white:after {
   letter-spacing: 8px;
 }
 
-/***/
+
+/*=======================*/
+/* SCREEN : MAIN MENU
+/*=======================*/
 #screen_Menu h1 {
   font-family: "Pacifico", sans-serif;
   text-transform:none;
@@ -245,7 +287,11 @@ html.ie10 #container.white:after {
   }
 }
 
-/***/
+
+/*=======================*/
+/* SCREEN : PLAY ONLINE
+/* - GENERAL RULES
+/*=======================*/
 #screen_Play h1 {
     text-align: center;
     font-size: 36px;
@@ -269,11 +315,6 @@ html.ie10 #container.white:after {
 @media (max-width: 480px) {
   #screen_Play h1 {font-size: 24px;}
   #screen_Play h2 {display: none;}
-}
-
-#screen_Play.matchmaking .registration:not(.matchmaking),
-#screen_Play.matchmaking .invite:not(.matchmaking) {
-  display: none;
 }
 
 .panel {
@@ -300,12 +341,23 @@ html.ie10 #container.white:after {
   padding-bottom:20px;
 }
 
+
+/*=======================*/
+/* SCREEN : PLAY ONLINE
+/* - MATCHMAKING
+/*=======================*/
+#screen_Play.matchmaking .registration:not(.matchmaking),
+#screen_Play.matchmaking .invite:not(.matchmaking) {
+  display: none;
+}
+
 .btRandom, .btInvite {
   background: #FFF;
   text-transform: none;
   font-size: 18px;
-  transition:color.2s ease-out;
   z-index: 0;
+
+  transition:color.2s ease-out;
 }
 
 .btRandom:hover, .btInvite:hover {
@@ -380,9 +432,7 @@ html.ie10 #container.white:after {
 }
 
 .btRandom.animate, .btInvite.animate {
-  -webkit-animation:clickStart 1s ease-out forwards;
-  -moz-animation:clickStart 1s ease-out forwards;
-  animation:clickStart 1s ease-out forwards;
+  @include animation("clickStart 1s ease-out forwards");
 }
 
 .btRandom.animate {
@@ -395,9 +445,7 @@ html.ie10 #container.white:after {
 
 .btRandom.animate:before, .btInvite.animate:before {
   width:100%;
-  -webkit-animation:clickStartPulse 1s ease-out forwards;
-  -moz-animation:clickStartPulse 1s ease-out forwards;
-  animation:clickStartPulse 1s ease-out forwards;
+  @include animation("clickStartPulse 1s ease-out forwards");
 }
 
 .btStart {
@@ -415,9 +463,7 @@ html.ie10 #container.white:after {
 }
 
 .btStart.animate {
-  -webkit-animation:clickStart 1s ease-out forwards;
-  -moz-animation:clickStart 1s ease-out forwards;
-  animation:clickStart 1s ease-out forwards;
+  @include animation("clickStart 1s ease-out forwards");
 }
 
 .btStart:before {
@@ -441,39 +487,7 @@ html.ie10 #container.white:after {
 .btStart.animate:before {
   visibility: visible;
 
-  -webkit-animation:clickStartPulse 1s ease-out forwards;
-  -moz-animation:clickStartPulse 1s ease-out forwards;
-  animation:clickStartPulse 1s ease-out forwards;
-}
-
-@-webkit-keyframes clickStart {
-  0%, 20%, 100% { transform:scale(1); }
-  10% { transform:scale(.75);}
-}
-
-@-moz-keyframes clickStart {
-  0%, 20%, 100% { transform:scale(1); }
-  10% { transform:scale(.75);}
-}
-
-@keyframes clickStart {
-  0%, 20%, 100% { transform:scale(1); }
-  10% { transform:scale(.75);}
-}
-
-@-webkit-keyframes clickStartPulse {
-  0%, 20% { opacity:.75; transform:scale(1); }
-  100% {opacity:0; transform:scale(1.25);}
-}
-
-@-moz-keyframes clickStartPulse {
-  0%, 20% { opacity:.75; transform:scale(1); }
-  100% {opacity:0; transform:scale(1.25);}
-}
-
-@keyframes clickStartPulse {
-  0%, 20% { opacity:.75; transform:scale(1); }
-  100% {opacity:0; transform:scale(1.25);}
+  @include animation("clickStartPulse 1s ease-out forwards");
 }
 
 .btCancel {
@@ -484,7 +498,22 @@ html.ie10 #container.white:after {
   letter-spacing: 2px;
 }
 
-/***/
+/* KEYFRAMES ---------*/
+@include keyframes(clickStart) {
+  0%, 20%, 100% { transform:scale(1); }
+  10% { transform:scale(.75);}
+}
+
+@include keyframes(clickStartPulse) {
+  0%, 20% { opacity:.75; transform:scale(1); }
+  100% { opacity:0; transform:scale(1.25); }
+}
+
+
+/*=======================*/
+/* SCREEN : PLAY ONLINE
+/* - REGISTRATION
+/*=======================*/
 #screen_Play.registration .matchmaking:not(.registration),
 #screen_Play.registration .invite:not(.registration) {
   display: none;
@@ -526,38 +555,6 @@ html.ie10 #container.white:after {
 .panel .registration input:focus {
   color:#FFF;
   letter-spacing: 4px;
-}
-
-::-webkit-input-placeholder {
-  transition:color .2s ease-out;
-}
-
-:focus::-webkit-input-placeholder {
-  color: #666;
-}
-
-:-moz-placeholder {
-  transition:color .2s ease-out;
-}
-
-:focus:-moz-placeholder { /* Firefox 18- */
-  color: #666; 
-}
-
-::-moz-placeholder {
-  transition:color .2s ease-out;
-}
-
-:focus::-moz-placeholder {  /* Firefox 19+ */
-  color: #666;
-}
-
-::-ms-input-placeholder {
-  transition:color .2s ease-out;
-}
-
-:focus:-ms-input-placeholder {  
-  color: #666;
 }
 
 .panel .registration label {
@@ -652,7 +649,11 @@ html.ie10 #container.white:after {
   left: auto;
 }
 
-/***/
+
+/*=======================*/
+/* SCREEN : PLAY ONLINE
+/* - INVITE
+/*=======================*/
 #screen_Play.invite .matchmaking:not(.invite),
 #screen_Play.invite .registration:not(.invite) {
   display: none;
@@ -684,6 +685,9 @@ html.ie10 #container.white:after {
 #friendlist li {
   height: 75px;
   line-height: 75px;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
   display: flex;
   position: relative;
   z-index: 0;
@@ -736,6 +740,9 @@ html.ie10 #container.white:after {
 #friendlist span {
   display: inline-block;
   vertical-align: top;
+  -webkit-flex: 1;
+  -moz-flex: 1;
+  -ms-flex: 1;
   flex: 1;
   text-indent: 10px;
   border-top: 1px solid #DDD;
@@ -772,7 +779,12 @@ html.ie10 #container.white:after {
   right: -23px;
 }
 
-/***/
+
+/*=======================*/
+/* MISCELLANEOUS :
+/* - CLICK FEEDBACK SPHERE
+/*   ANIMATION
+/*=======================*/
 #menu li span, .btCancel span {
   position: relative;
   z-index: 10;
@@ -789,9 +801,7 @@ html.ie10 #container.white:after {
 
 #menu li.animate span,
 .btCancel.animate span {
-  -webkit-animation:clickMenuTxt 1.5s ease-out forwards;
-  -moz-animation:clickMenuTxt 1.5s ease-out forwards;
-  animation:clickMenuTxt 1.5s ease-out forwards;
+  @include animation("clickMenuTxt 1.5s ease-out forwards");
 }
 
 #menu li:after,
@@ -810,83 +820,16 @@ html.ie10 #container.white:after {
 
 #menu li.animate:after,
 .btCancel.animate:after {
-    -webkit-animation:clickMenu 1.5s ease forwards;
-    -moz-animation:clickMenu 1.5s ease forwards;
-    animation:clickMenu 1.5s ease forwards;
+    @include animation("clickMenu 1.5s ease forwards");
 }
 
-@-webkit-keyframes clickMenuTxt {
+/* KEYFRAMES ---------*/
+@include keyframes(clickMenuTxt) {
   0%, 20%, 50%, 100% { transform:scale(1); }
   30% {transform:scale(.75);}
 }
 
-@-moz-keyframes clickMenuTxt {
-  0%, 20%, 50%, 100% { transform:scale(1); }
-  30% {transform:scale(.75);}
-}
-
-@keyframes clickMenuTxt {
-  0%, 20%, 50%, 100% { transform:scale(1); }
-  30% {transform:scale(.75);}
-}
-
-@-webkit-keyframes clickMenu {
-  0% {
-    transform:scale(.75);
-    border:32px solid rgba(255,255,255,.5);
-    opacity:0;
-  }
-  10% {opacity:1;}
-  20% {
-    transform:scale(1);
-    border:32px solid rgba(255,255,255,.8);
-  }
-  30% {transform:scale(.5);}
-  40% {
-    border:32px solid rgba(255,255,255,.8);
-  }
-  50% {opacity:1;}
-  80% {
-    transform:scale(1.25);
-    border:2px solid rgba(255,255,255,.8);
-    opacity:.4;
-  }
-  100% {
-    transform: scale(1.25);
-    border:0px solid rgba(255,255,255,.8);
-    opacity:0;
-  }
-}
-
-@-moz-keyframes clickMenu {
-  0% {
-    transform:scale(.75);
-    border:32px solid rgba(255,255,255,.5);
-    opacity:0;
-  }
-  10% {opacity:1;}
-  20% {
-    transform:scale(1);
-    border:32px solid rgba(255,255,255,.8);
-  }
-  30% {transform:scale(.5);}
-  40% {
-    border:32px solid rgba(255,255,255,.8);
-  }
-  50% {opacity:1;}
-  80% {
-    transform:scale(1.25);
-    border:2px solid rgba(255,255,255,.8);
-    opacity:.4;
-  }
-  100% {
-    transform: scale(1.25);
-    border:0px solid rgba(255,255,255,.8);
-    opacity:0;
-  }
-}
-
-@keyframes clickMenu {
+@include keyframes(clickMenu) {
   0% {
     transform:scale(.75);
     border:32px solid rgba(255,255,255,.5);
