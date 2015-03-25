@@ -79,6 +79,13 @@ button {
 /*=======================*/
 /* CONTAINERS
 /*=======================*/
+#uiTest {
+  width: 100%;
+  height: 96px;
+  position: absolute;
+  top: 0;
+  background: #f8f8f8 url("../images/uiTest.jpg") no-repeat; }
+
 #container {
   overflow: hidden;
   position: absolute;
@@ -144,6 +151,10 @@ html.ie10 #container.white:after {
   text-align: center;
   visibility: visible;
   opacity: 1;
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
   transform: scale(1);
   box-sizing: border-box;
   position: absolute;
@@ -152,6 +163,10 @@ html.ie10 #container.white:after {
 .modalContainer:not(.open) {
   visibility: hidden;
   opacity: 0;
+  -webkit-transform: scale(3);
+  -moz-transform: scale(3);
+  -ms-transform: scale(3);
+  -o-transform: scale(3);
   transform: scale(3);
   pointer-events: none;
   transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1); }
@@ -199,18 +214,17 @@ html.ie10 #container.white:after {
   #menu li.disabled {
     color: rgba(255, 255, 255, 0.5);
     cursor: default; }
-  #menu li hr {
-    content: "";
-    width: 15%;
-    height: 1px;
-    background: #FFF;
-    position: absolute;
-    left: calc((100% - 15%) / 2);
-    bottom: 0;
-    margin: 0;
-    border: none; }
   #menu li span {
     display: inline-block; }
+
+#menu hr {
+  width: 15%;
+  height: 1px;
+  background: #FFF;
+  position: relative;
+  left: calc((100% - 15%) / 2);
+  margin: 0;
+  border: none; }
 
 /*=======================*/
 /* SCREEN : PLAY ONLINE
@@ -400,63 +414,143 @@ html.ie10 #container.white:after {
 /* KEYFRAMES ---------*/
 @-webkit-keyframes clickStart {
   0%, 20%, 100% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
     transform: scale(1); }
   10% {
-    transform: scale(0.75); } }
+    -webkit-transform: scale(.75);
+    -moz-transform: scale(.75);
+    -ms-transform: scale(.75);
+    -o-transform: scale(.75);
+    transform: scale(.75); } }
 @-moz-keyframes clickStart {
   0%, 20%, 100% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
     transform: scale(1); }
   10% {
-    transform: scale(0.75); } }
+    -webkit-transform: scale(.75);
+    -moz-transform: scale(.75);
+    -ms-transform: scale(.75);
+    -o-transform: scale(.75);
+    transform: scale(.75); } }
 @-ms-keyframes clickStart {
   0%, 20%, 100% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
     transform: scale(1); }
   10% {
-    transform: scale(0.75); } }
+    -webkit-transform: scale(.75);
+    -moz-transform: scale(.75);
+    -ms-transform: scale(.75);
+    -o-transform: scale(.75);
+    transform: scale(.75); } }
 @-o-keyframes clickStart {
   0%, 20%, 100% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
     transform: scale(1); }
   10% {
-    transform: scale(0.75); } }
+    -webkit-transform: scale(.75);
+    -moz-transform: scale(.75);
+    -ms-transform: scale(.75);
+    -o-transform: scale(.75);
+    transform: scale(.75); } }
 @keyframes clickStart {
   0%, 20%, 100% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
     transform: scale(1); }
   10% {
-    transform: scale(0.75); } }
+    -webkit-transform: scale(.75);
+    -moz-transform: scale(.75);
+    -ms-transform: scale(.75);
+    -o-transform: scale(.75);
+    transform: scale(.75); } }
 @-webkit-keyframes clickStartPulse {
   0%, 20% {
     opacity: .75;
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
     transform: scale(1); }
   100% {
     opacity: 0;
+    -webkit-transform: scale(1.25);
+    -moz-transform: scale(1.25);
+    -ms-transform: scale(1.25);
+    -o-transform: scale(1.25);
     transform: scale(1.25); } }
 @-moz-keyframes clickStartPulse {
   0%, 20% {
     opacity: .75;
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
     transform: scale(1); }
   100% {
     opacity: 0;
+    -webkit-transform: scale(1.25);
+    -moz-transform: scale(1.25);
+    -ms-transform: scale(1.25);
+    -o-transform: scale(1.25);
     transform: scale(1.25); } }
 @-ms-keyframes clickStartPulse {
   0%, 20% {
     opacity: .75;
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
     transform: scale(1); }
   100% {
     opacity: 0;
+    -webkit-transform: scale(1.25);
+    -moz-transform: scale(1.25);
+    -ms-transform: scale(1.25);
+    -o-transform: scale(1.25);
     transform: scale(1.25); } }
 @-o-keyframes clickStartPulse {
   0%, 20% {
     opacity: .75;
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
     transform: scale(1); }
   100% {
     opacity: 0;
+    -webkit-transform: scale(1.25);
+    -moz-transform: scale(1.25);
+    -ms-transform: scale(1.25);
+    -o-transform: scale(1.25);
     transform: scale(1.25); } }
 @keyframes clickStartPulse {
   0%, 20% {
     opacity: .75;
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
     transform: scale(1); }
   100% {
     opacity: 0;
+    -webkit-transform: scale(1.25);
+    -moz-transform: scale(1.25);
+    -ms-transform: scale(1.25);
+    -o-transform: scale(1.25);
     transform: scale(1.25); } }
 /*=======================*/
 /* SCREEN : PLAY ONLINE
@@ -538,6 +632,10 @@ html.ie10 #container.white:after {
 .registration input:focus + label .title,
 .registration .filled .title {
   opacity: 0;
+  -webkit-transform: translateX(50px);
+  -moz-transform: translateX(50px);
+  -ms-transform: translateX(50px);
+  -o-transform: translateX(50px);
   transform: translateX(50px); }
 
 .registration label .fa-lg {
@@ -546,6 +644,10 @@ html.ie10 #container.white:after {
   position: absolute;
   height: 100%;
   box-sizing: border-box;
+  -webkit-transform: translateX(-50px);
+  -moz-transform: translateX(-50px);
+  -ms-transform: translateX(-50px);
+  -o-transform: translateX(-50px);
   transform: translateX(-50px);
   opacity: 0;
   transition: all .2s ease-out; }
@@ -553,6 +655,10 @@ html.ie10 #container.white:after {
 .registration input:focus + label .fa-lg,
 .registration .filled .fa-lg {
   opacity: 1;
+  -webkit-transform: translateX(0);
+  -moz-transform: translateX(0);
+  -ms-transform: translateX(0);
+  -o-transform: translateX(0);
   transform: translateX(0); }
 
 .registration .filled .fa-lg {
@@ -651,12 +757,12 @@ html.ie10 #container.white:after {
 #friendlist span {
   display: inline-block;
   vertical-align: top;
+  text-indent: 10px;
+  border-top: 1px solid #DDD;
   -webkit-flex: 1;
   -moz-flex: 1;
   -ms-flex: 1;
   flex: 1;
-  text-indent: 10px;
-  border-top: 1px solid #DDD;
   transition: all .15s ease-out; }
 
 #friendlist li:first-child span {
@@ -691,11 +797,19 @@ html.ie10 #container.white:after {
   position: relative;
   z-index: 10; }
 
-#menu li span, .btCancel {
+#menu li, .btCancel {
+  -webkit-transition: -webkit-transform .2s ease-out;
+  -moz-transition: -moz-transform .2s ease-out;
+  -ms-transition: -ms-transform .2s ease-out;
+  -o-transition: -o-transform .2s ease-out;
   transition: transform .2s ease-out; }
 
-#menu li:hover span,
+#menu li:hover,
 .btCancel:hover {
+  -webkit-transform: scale(1.25);
+  -moz-transform: scale(1.25);
+  -ms-transform: scale(1.25);
+  -o-transform: scale(1.25);
   transform: scale(1.25); }
 
 #menu li.animate span,
@@ -730,146 +844,286 @@ html.ie10 #container.white:after {
 /* KEYFRAMES ---------*/
 @-webkit-keyframes clickMenuTxt {
   0%, 20%, 50%, 100% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
     transform: scale(1); }
   30% {
-    transform: scale(0.75); } }
+    -webkit-transform: scale(.75);
+    -moz-transform: scale(.75);
+    -ms-transform: scale(.75);
+    -o-transform: scale(.75);
+    transform: scale(.75); } }
 @-moz-keyframes clickMenuTxt {
   0%, 20%, 50%, 100% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
     transform: scale(1); }
   30% {
-    transform: scale(0.75); } }
+    -webkit-transform: scale(.75);
+    -moz-transform: scale(.75);
+    -ms-transform: scale(.75);
+    -o-transform: scale(.75);
+    transform: scale(.75); } }
 @-ms-keyframes clickMenuTxt {
   0%, 20%, 50%, 100% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
     transform: scale(1); }
   30% {
-    transform: scale(0.75); } }
+    -webkit-transform: scale(.75);
+    -moz-transform: scale(.75);
+    -ms-transform: scale(.75);
+    -o-transform: scale(.75);
+    transform: scale(.75); } }
 @-o-keyframes clickMenuTxt {
   0%, 20%, 50%, 100% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
     transform: scale(1); }
   30% {
-    transform: scale(0.75); } }
+    -webkit-transform: scale(.75);
+    -moz-transform: scale(.75);
+    -ms-transform: scale(.75);
+    -o-transform: scale(.75);
+    transform: scale(.75); } }
 @keyframes clickMenuTxt {
   0%, 20%, 50%, 100% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
     transform: scale(1); }
   30% {
-    transform: scale(0.75); } }
+    -webkit-transform: scale(.75);
+    -moz-transform: scale(.75);
+    -ms-transform: scale(.75);
+    -o-transform: scale(.75);
+    transform: scale(.75); } }
 @-webkit-keyframes clickMenu {
   0% {
-    transform: scale(0.75);
+    -webkit-transform: scale(.75);
+    -moz-transform: scale(.75);
+    -ms-transform: scale(.75);
+    -o-transform: scale(.75);
+    transform: scale(.75);
     border: 32px solid rgba(255, 255, 255, 0.5);
     opacity: 0; }
   10% {
     opacity: 1; }
   20% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
     transform: scale(1);
     border: 32px solid rgba(255, 255, 255, 0.8); }
   30% {
-    transform: scale(0.5); }
+    -webkit-transform: scale(.5);
+    -moz-transform: scale(.5);
+    -ms-transform: scale(.5);
+    -o-transform: scale(.5);
+    transform: scale(.5); }
   40% {
     border: 32px solid rgba(255, 255, 255, 0.8); }
   50% {
     opacity: 1; }
   80% {
+    -webkit-transform: scale(1.25);
+    -moz-transform: scale(1.25);
+    -ms-transform: scale(1.25);
+    -o-transform: scale(1.25);
     transform: scale(1.25);
     border: 2px solid rgba(255, 255, 255, 0.8);
     opacity: .4; }
   100% {
+    -webkit-transform: scale(1.25);
+    -moz-transform: scale(1.25);
+    -ms-transform: scale(1.25);
+    -o-transform: scale(1.25);
     transform: scale(1.25);
     border: 0px solid rgba(255, 255, 255, 0.8);
     opacity: 0; } }
 @-moz-keyframes clickMenu {
   0% {
-    transform: scale(0.75);
+    -webkit-transform: scale(.75);
+    -moz-transform: scale(.75);
+    -ms-transform: scale(.75);
+    -o-transform: scale(.75);
+    transform: scale(.75);
     border: 32px solid rgba(255, 255, 255, 0.5);
     opacity: 0; }
   10% {
     opacity: 1; }
   20% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
     transform: scale(1);
     border: 32px solid rgba(255, 255, 255, 0.8); }
   30% {
-    transform: scale(0.5); }
+    -webkit-transform: scale(.5);
+    -moz-transform: scale(.5);
+    -ms-transform: scale(.5);
+    -o-transform: scale(.5);
+    transform: scale(.5); }
   40% {
     border: 32px solid rgba(255, 255, 255, 0.8); }
   50% {
     opacity: 1; }
   80% {
+    -webkit-transform: scale(1.25);
+    -moz-transform: scale(1.25);
+    -ms-transform: scale(1.25);
+    -o-transform: scale(1.25);
     transform: scale(1.25);
     border: 2px solid rgba(255, 255, 255, 0.8);
     opacity: .4; }
   100% {
+    -webkit-transform: scale(1.25);
+    -moz-transform: scale(1.25);
+    -ms-transform: scale(1.25);
+    -o-transform: scale(1.25);
     transform: scale(1.25);
     border: 0px solid rgba(255, 255, 255, 0.8);
     opacity: 0; } }
 @-ms-keyframes clickMenu {
   0% {
-    transform: scale(0.75);
+    -webkit-transform: scale(.75);
+    -moz-transform: scale(.75);
+    -ms-transform: scale(.75);
+    -o-transform: scale(.75);
+    transform: scale(.75);
     border: 32px solid rgba(255, 255, 255, 0.5);
     opacity: 0; }
   10% {
     opacity: 1; }
   20% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
     transform: scale(1);
     border: 32px solid rgba(255, 255, 255, 0.8); }
   30% {
-    transform: scale(0.5); }
+    -webkit-transform: scale(.5);
+    -moz-transform: scale(.5);
+    -ms-transform: scale(.5);
+    -o-transform: scale(.5);
+    transform: scale(.5); }
   40% {
     border: 32px solid rgba(255, 255, 255, 0.8); }
   50% {
     opacity: 1; }
   80% {
+    -webkit-transform: scale(1.25);
+    -moz-transform: scale(1.25);
+    -ms-transform: scale(1.25);
+    -o-transform: scale(1.25);
     transform: scale(1.25);
     border: 2px solid rgba(255, 255, 255, 0.8);
     opacity: .4; }
   100% {
+    -webkit-transform: scale(1.25);
+    -moz-transform: scale(1.25);
+    -ms-transform: scale(1.25);
+    -o-transform: scale(1.25);
     transform: scale(1.25);
     border: 0px solid rgba(255, 255, 255, 0.8);
     opacity: 0; } }
 @-o-keyframes clickMenu {
   0% {
-    transform: scale(0.75);
+    -webkit-transform: scale(.75);
+    -moz-transform: scale(.75);
+    -ms-transform: scale(.75);
+    -o-transform: scale(.75);
+    transform: scale(.75);
     border: 32px solid rgba(255, 255, 255, 0.5);
     opacity: 0; }
   10% {
     opacity: 1; }
   20% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
     transform: scale(1);
     border: 32px solid rgba(255, 255, 255, 0.8); }
   30% {
-    transform: scale(0.5); }
+    -webkit-transform: scale(.5);
+    -moz-transform: scale(.5);
+    -ms-transform: scale(.5);
+    -o-transform: scale(.5);
+    transform: scale(.5); }
   40% {
     border: 32px solid rgba(255, 255, 255, 0.8); }
   50% {
     opacity: 1; }
   80% {
+    -webkit-transform: scale(1.25);
+    -moz-transform: scale(1.25);
+    -ms-transform: scale(1.25);
+    -o-transform: scale(1.25);
     transform: scale(1.25);
     border: 2px solid rgba(255, 255, 255, 0.8);
     opacity: .4; }
   100% {
+    -webkit-transform: scale(1.25);
+    -moz-transform: scale(1.25);
+    -ms-transform: scale(1.25);
+    -o-transform: scale(1.25);
     transform: scale(1.25);
     border: 0px solid rgba(255, 255, 255, 0.8);
     opacity: 0; } }
 @keyframes clickMenu {
   0% {
-    transform: scale(0.75);
+    -webkit-transform: scale(.75);
+    -moz-transform: scale(.75);
+    -ms-transform: scale(.75);
+    -o-transform: scale(.75);
+    transform: scale(.75);
     border: 32px solid rgba(255, 255, 255, 0.5);
     opacity: 0; }
   10% {
     opacity: 1; }
   20% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
     transform: scale(1);
     border: 32px solid rgba(255, 255, 255, 0.8); }
   30% {
-    transform: scale(0.5); }
+    -webkit-transform: scale(.5);
+    -moz-transform: scale(.5);
+    -ms-transform: scale(.5);
+    -o-transform: scale(.5);
+    transform: scale(.5); }
   40% {
     border: 32px solid rgba(255, 255, 255, 0.8); }
   50% {
     opacity: 1; }
   80% {
+    -webkit-transform: scale(1.25);
+    -moz-transform: scale(1.25);
+    -ms-transform: scale(1.25);
+    -o-transform: scale(1.25);
     transform: scale(1.25);
     border: 2px solid rgba(255, 255, 255, 0.8);
     opacity: .4; }
   100% {
+    -webkit-transform: scale(1.25);
+    -moz-transform: scale(1.25);
+    -ms-transform: scale(1.25);
+    -o-transform: scale(1.25);
     transform: scale(1.25);
     border: 0px solid rgba(255, 255, 255, 0.8);
     opacity: 0; } }

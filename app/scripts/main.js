@@ -188,24 +188,26 @@ $(document).ready(function() {
 	$("#friendlist li").each(function(el) {
 		var el = this;
 
+		var cancelSelect = function(e) {
+			if($(e.target).closest('.panel').length < 1) {
+				$("#friendlist li").removeClass("selected");
+				$("#friendlist").removeClass("selecting");
+			}
+		};
+
 		$(el).on(eventtype, function() {
 			if(!$(".panel div.invite").hasClass("scrolling")) {
 				if(!$(el).hasClass("selected")) {
 					$("#friendlist li").removeClass("selected");
 					$(el).addClass("selected");
-
 					$("#friendlist").addClass("selecting");
-					$(".panel").on('mouseleave', function() {
-						$("#friendlist li").removeClass("selected");
-						$("#friendlist").removeClass("selecting");
 
-						$(this).unbind("mouseleave");
-					});
+					$(window).on(eventtype+" mouseleave", cancelSelect);
 				}
 				else if(!$isTransitioning) {
 					$("#friendlist li").removeClass("selected");
 					$("#friendlist").removeClass("selecting");
-					$(".panel").unbind("mouseleave");
+					$(window).unbind(eventtype+" mouseleave", cancelSelect);
 
 					setModal("inviteSent", 250, true);
 				}

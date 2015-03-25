@@ -31,6 +31,22 @@
   animation: #{$str};      
 }
 
+@mixin transform($str) {
+  -webkit-transform: #{$str};
+  -moz-transform: #{$str};
+  -ms-transform: #{$str};
+  -o-transform: #{$str};
+  transform: #{$str};
+}
+
+@mixin transition($str) {
+  -webkit-transition: -webkit-#{$str};
+  -moz-transition: -moz-#{$str};
+  -ms-transition: -ms-#{$str};
+  -o-transition: -o-#{$str};
+  transition: #{$str};
+}
+
 
 /*=======================*/
 /* GENERAL RULES
@@ -208,7 +224,7 @@ html.ie10 #container.white:after {
   text-align: center;
   visibility: visible;
   opacity: 1;
-  transform:scale(1);
+  @include transform("scale(1)");
   box-sizing: border-box;
   position: absolute;
 
@@ -218,7 +234,7 @@ html.ie10 #container.white:after {
 .modalContainer:not(.open) {
   visibility: hidden;
   opacity: 0;
-  transform:scale(3);
+  @include transform("scale(3)");
   pointer-events:none;
 
   transition: all .5s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -506,13 +522,13 @@ html.ie10 #container.white:after {
 
 /* KEYFRAMES ---------*/
 @include keyframes(clickStart) {
-  0%, 20%, 100% { transform:scale(1); }
-  10% { transform:scale(.75);}
+  0%, 20%, 100% { @include transform("scale(1)"); }
+  10% { @include transform("scale(.75)"); }
 }
 
 @include keyframes(clickStartPulse) {
-  0%, 20% { opacity:.75; transform:scale(1); }
-  100% { opacity:0; transform:scale(1.25); }
+  0%, 20% { opacity:.75; @include transform("scale(1)"); }
+  100% { opacity:0; @include transform("scale(1.25)"); }
 }
 
 
@@ -607,7 +623,7 @@ html.ie10 #container.white:after {
 .registration input:focus+label .title,
 .registration .filled .title {
     opacity: 0;
-    transform: translateX(50px);
+    @include transform("translateX(50px)");
 }
 
 .registration label .fa-lg {
@@ -616,7 +632,7 @@ html.ie10 #container.white:after {
   position: absolute;
   height: 100%;
   box-sizing: border-box;
-  transform: translateX(-50px);
+  @include transform("translateX(-50px)");
   opacity: 0;
 
   transition:all .2s ease-out;
@@ -625,7 +641,7 @@ html.ie10 #container.white:after {
 .registration input:focus+label .fa-lg,
 .registration .filled .fa-lg {
   opacity: 1;
-  transform: translateX(0);
+  @include transform("translateX(0)");
 }
 
 .registration .filled .fa-lg {
@@ -746,12 +762,12 @@ html.ie10 #container.white:after {
 #friendlist span {
   display: inline-block;
   vertical-align: top;
+  text-indent: 10px;
+  border-top: 1px solid #DDD;
   -webkit-flex: 1;
   -moz-flex: 1;
   -ms-flex: 1;
   flex: 1;
-  text-indent: 10px;
-  border-top: 1px solid #DDD;
 
   transition:all .15s ease-out;
 }
@@ -797,12 +813,12 @@ html.ie10 #container.white:after {
 }
 
 #menu li, .btCancel {
-  transition: transform .2s ease-out;
+  @include transition("transform .2s ease-out");
 }
 
 #menu li:hover,
 .btCancel:hover {
-  transform:scale(1.25);
+  @include transform("scale(1.25)");
 }
 
 #menu li.animate span,
@@ -831,33 +847,33 @@ html.ie10 #container.white:after {
 
 /* KEYFRAMES ---------*/
 @include keyframes(clickMenuTxt) {
-  0%, 20%, 50%, 100% { transform:scale(1); }
-  30% {transform:scale(.75);}
+  0%, 20%, 50%, 100% { @include transform("scale(1)"); }
+  30% { @include transform("scale(.75)");}
 }
 
 @include keyframes(clickMenu) {
   0% {
-    transform:scale(.75);
+    @include transform("scale(.75)");
     border:32px solid rgba(255,255,255,.5);
     opacity:0;
   }
   10% {opacity:1;}
   20% {
-    transform:scale(1);
+    @include transform("scale(1)");
     border:32px solid rgba(255,255,255,.8);
   }
-  30% {transform:scale(.5);}
+  30% {@include transform("scale(.5)");}
   40% {
     border:32px solid rgba(255,255,255,.8);
   }
   50% {opacity:1;}
   80% {
-    transform:scale(1.25);
+    @include transform("scale(1.25)");
     border:2px solid rgba(255,255,255,.8);
     opacity:.4;
   }
   100% {
-    transform: scale(1.25);
+    @include transform("scale(1.25)");
     border:0px solid rgba(255,255,255,.8);
     opacity:0;
   }
