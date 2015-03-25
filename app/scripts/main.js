@@ -216,8 +216,8 @@ $(document).ready(function() {
 
 function setTransition(transition) {
 	var transition,
-		initWidth = $("#menu li hr").css("width"),
-		initLeft = $("#menu li hr").css("left");
+		initWidth = $("#menu hr").css("width"),
+		initLeft = $("#menu hr").css("left");
 
 	if(transition == "screen_Menu_In") {
 		transition = new TimelineMax({paused:true});
@@ -225,16 +225,16 @@ function setTransition(transition) {
 			      .to($("<div>"), 1, {onStart:function() {
 				  	$("#container").removeClass("white");
 				  }}, 0)
-			      .staggerFromTo($("#menu li hr"), .5, {width:"0", left:"50%"}, {width:"80%", left:"10%", ease:Back.easeIn}, .1, .25)
-			      .to($("#menu li hr"), .5, {width:initWidth, left:initLeft, ease:Power1.easeIn})
+			      .staggerFromTo($("#menu hr"), .5, {width:"0", left:"50%"}, {width:"80%", left:"10%", ease:Back.easeIn}, .1, .25)
+			      .to($("#menu hr"), .5, {width:initWidth, left:initLeft, ease:Power1.easeIn})
 			      .staggerFrom($("#menu li span"), .5, {top:"65px", ease:Power2.easeIn}, .1, 1);
 	}
 
 	if(transition == "screen_Menu_Out") {
 		transition = new TimelineMax({paused:true, delay:.5});
-		transition.staggerTo($("#menu li hr"), .5, {width:"80%", left:"10%", ease:Back.easeIn}, -.1)
+		transition.staggerTo($("#menu hr"), .5, {width:"80%", left:"10%", ease:Back.easeIn}, -.1)
 				  .staggerTo($("#menu li span"), .5, {top:"65px", ease:Power4.easeIn}, -.1, 1)
-				  .staggerTo($("#menu li hr"), .5, {width:initWidth, left:initLeft, ease:Power1.easeIn}, -.1, 1)
+				  .staggerTo($("#menu hr"), .5, {width:initWidth, left:initLeft, ease:Power1.easeIn}, -.1, 1)
 				  .to($("<div>"), 1, {onStart:function() {
 				  	$("#container").addClass("white");
 				  }}, 1.5)
