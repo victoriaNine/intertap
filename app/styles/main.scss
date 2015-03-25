@@ -181,12 +181,14 @@ html.ie10 #container.white:after {
   width: 100%;
   height: 100%;
   visibility:hidden;
+  pointer-events:none;
   position: absolute;
   top:0;
   left:0;
 
   &.active {
     visibility: visible;
+    pointer-events:auto;
   }
 }
 
@@ -227,6 +229,7 @@ html.ie10 #container.white:after {
   @include transform("scale(1)");
   box-sizing: border-box;
   position: absolute;
+  pointer-events:auto;
 
   transition: all .25s cubic-bezier(0.895, 0.03, 0.685, 0.22);
 }

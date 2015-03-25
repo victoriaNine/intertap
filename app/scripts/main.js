@@ -193,24 +193,34 @@ $(document).ready(function() {
 				$("#friendlist li").removeClass("selected");
 				$("#friendlist").removeClass("selecting");
 			}
+
+			$(this).off(eventtype, cancelSelect);
 		};
 
 		$(el).on(eventtype, function() {
-			if(!$(".panel div.invite").hasClass("scrolling")) {
-				if(!$(el).hasClass("selected")) {
-					$("#friendlist li").removeClass("selected");
-					$(el).addClass("selected");
-					$("#friendlist").addClass("selecting");
+			if(!$(".panel div.invite").hasClass("scrolling") && !$isTransitioning) {
+					if(!$(el).hasClass("selected")) {
+						$("#friendlist li").removeClass("selected");
+						$(el).addClass("selected");
 
-					$(window).on(eventtype+" mouseleave", cancelSelect);
-				}
-				else if(!$isTransitioning) {
-					$("#friendlist li").removeClass("selected");
-					$("#friendlist").removeClass("selecting");
-					$(window).unbind(eventtype+" mouseleave", cancelSelect);
+						$("#friendlist").addClass("selecting");
+						$(".panel").on('mouseleave', function() {
+							$("#friendlist li").removeClass("selected");
+							$("#friendlist").removeClass("selecting");
 
-					setModal("inviteSent", 250, true);
-				}
+							$(this).off("mouseleave");
+						});
+
+						if(mobilecheck()) $(window).on(eventtype, cancelSelect);
+					}
+					else {
+						$("#friendlist li").removeClass("selected");
+						$("#friendlist").removeClass("selecting");
+						$(".panel").off("mouseleave");
+						if(mobilecheck()) $(window).off(eventtype, cancelSelect);
+
+						setModal("inviteSent", 250, true);
+					}
 			}
 		});
 	});

@@ -21,6 +21,7 @@ var planet, gas, moon, craters, meteor,
 	moon_x, moon_y, craters_x, craters_y,
 	meteor_x, meteor_y, meteorFalling = false, meteorDelay = -1;
 
+
 $(document).ready(function() {
 	WIDTH = window.innerWidth;
 	HEIGHT = window.innerHeight;
