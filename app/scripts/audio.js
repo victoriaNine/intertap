@@ -57,6 +57,8 @@ var BGM = (function() {
 	var audioCtx;
 	var sourceArray = new Array();
 	var crossfadeArray = new Array();
+	var muted = false;
+	var gainTransition = false;
 	var primalTimbre;
 	var spiral;
 
@@ -123,17 +125,59 @@ var BGM = (function() {
 	}
 
 	function setCrossfade(gain1, gain2) {
-		if(gain1 != -1) TweenMax.to(primalTimbre.gainNode.gain, 4, {value: gain1, ease: Circ.easeOut});
-	    if(gain2 != -1) TweenMax.to(spiral.gainNode.gain, 4, {value: gain2, ease: Circ.easeOut});
+		gainTransition = true;
+		isDone = 0;
+
+		if(gain1 != -1) {
+			if(gain1 - .2 >= 0) gain1 -= .2;
+			TweenMax.to(primalTimbre.gainNode.gain, 4, {value: gain1, ease: Circ.easeOut,
+				onComplete:function() {
+					isDone++;
+					if(isDone == 2) gainTransition = false;
+				}
+			});
+		}
+	    if(gain2 != -1) {
+	    	if(gain2 - .2 >= 0) gain2 -= .2;
+	    	TweenMax.to(spiral.gainNode.gain, 4, {value: gain2, ease: Circ.easeOut,
+				onComplete:function() {
+					isDone++;
+					if(isDone == 2) gainTransition = false;
+				}
+			});
+	    }
 	}
 
 	function prepareCrossfade(gain1, gain2) {
-		crossfadeArray.push([gain1, gain2]);
+		crossfadeArray.unshift([gain1, gain2]);
 	}
 
 	function playCrossfade() {
-		setCrossfade(crossfadeArray[0][0], crossfadeArray[0][1]);
-		crossfadeArray.shift();
+		if(!muted && crossfadeArray.length > 0) {
+			setCrossfade(crossfadeArray[0][0], crossfadeArray[0][1]);
+			if(!gainTransition) crossfadeArray.shift();
+		}
+	}
+
+	function mute(state) {
+		if(state == true || state == false) {
+			if(state == mute) return;
+			muted = state;
+		}
+		if(state == "toggle") muted = !muted;
+
+		if(muted == true) {
+			if(!gainTransition) {
+				crossfadeArray = [];
+				prepareCrossfade(primalTimbre.gainNode.gain.value, spiral.gainNode.gain.value);
+			}
+
+			setCrossfade(0, 0);
+		}
+		else {
+			playCrossfade();
+			if(!gainTransition) crossfadeArray = [];
+		}
 	}
 
 	return {
@@ -141,7 +185,16 @@ var BGM = (function() {
 		play:play,
 		setCrossfade:setCrossfade,
 		prepareCrossfade:prepareCrossfade,
-		playCrossfade:playCrossfade
+		playCrossfade:playCrossfade,
+		mute:function() {
+			mute(true);
+		},
+		unmute:function() {
+			mute(false);
+		},
+		toggleMute:function() {
+			mute("toggle");
+		}
 	};
 })();
 
@@ -149,14 +202,15 @@ var BGM = (function() {
 var SFX = (function() {
 	var audioCtx;
 	var bufferArray = new Array();
+	var muted = false;
 
 	function init() {
 	    // Fix up for prefixing
 	    window.AudioContext = window.AudioContext||window.webkitAudioContext;
 	    audioCtx = new AudioContext();
 
-	    var bufferLoader = new BufferLoader(audioCtx, ['assets/sfx/cameraMode.mp3',
-	      										   	   'assets/sfx/cancel.mp3',
+	    var bufferLoader = new BufferLoader(audioCtx, ['assets/sfx/cancel.mp3',
+	      										   	   'assets/sfx/cancelMenu.mp3',
 	      										   	   'assets/sfx/closeWindow.mp3',
 	      										   	   'assets/sfx/confirm.mp3',
 	      										   	   'assets/sfx/enterChat.mp3',
@@ -183,19 +237,18 @@ var SFX = (function() {
 		var gainNode = audioCtx.createGain ? audioCtx.createGain() : audioCtx.createGainNode();
 
 	    source.buffer = buffer;
-	    gainNode.gain.value = .75;
-
 		source.connect(gainNode);
 	    gainNode.connect(audioCtx.destination);
 
+	    gainNode.gain.value = .4;
 	    source.start(0);
 	}
 
 	function play(sfxName) {
 		var sfx;
 
-		if(sfxName == "cameraMode") sfx = bufferArray[0];
-		if(sfxName == "cancel") sfx = bufferArray[1];
+		if(sfxName == "cancel") sfx = bufferArray[0];
+		if(sfxName == "cancelMenu") sfx = bufferArray[1];
 		if(sfxName == "closeWindow") sfx = bufferArray[2];
 		if(sfxName == "confirm") sfx = bufferArray[3];
 		if(sfxName == "enterChat") sfx = bufferArray[4];
@@ -207,53 +260,79 @@ var SFX = (function() {
 		if(sfxName == "play") sfx = bufferArray[10];
 		if(sfxName == "switchTarget") sfx = bufferArray[11];
 
-		createSource(sfx);
+		if(!muted) createSource(sfx);
+	}
+
+	function mute(state) {
+		if(state == true || state == false) {
+			if(state == mute) return;
+			muted = state;
+		}
+		if(state == "toggle") muted = !muted;
 	}
 
 	return {
 		init:init,
-		play:play
+		play:play,
+		mute:function() {
+			mute(true);
+		},
+		unmute:function() {
+			mute(false);
+		},
+		toggleMute:function() {
+			mute("toggle");
+		}
 	};
 })();
 
 $(document).ready(function() {
-	$("#menu li, #friendlist li, button").mouseenter(function() {
-		if(!$isTransitioning) {
-			if(!$(this).hasClass("btCancel") && !$(this).hasClass("selected")) SFX.play("hover");
-			else if($(this).hasClass("btCancel")) SFX.play("switchTarget");
-		}
-	});
+	if(!phonecheck()) {
+		$("#soundSwitch").on(eventtype, function() {
+				BGM.toggleMute();
+				SFX.toggleMute();
 
-	$("#menu li").eq(0).click(function() {
-		if(!$isTransitioning) SFX.play("play");	
-	});
+				$(this).toggleClass("on off");
+		});
 
-	$("#menu li.disabled").click(function() {
-		if(!$isTransitioning) SFX.play("error");	
-	});
+		$("#menu li, #friendlist li, button").mouseenter(function() {
+			if(!$isTransitioning) {
+				if(!$(this).hasClass("btCancel") && !$(this).hasClass("selected")) SFX.play("hover");
+				else if($(this).hasClass("btCancel")) SFX.play("switchTarget");
+			}
+		});
 
-	$("input").click(function() {
-		if(!$isTransitioning) SFX.play("enterChat");	
-	});
+		$("#menu li").eq(0).on(eventtype, function() {
+			if(!$isTransitioning) SFX.play("play");	
+		});
 
-	$(".panel").mouseleave(function() {
-		if(!$isTransitioning && $(this).parents("#screen_Play").hasClass("invite"))
-			SFX.play("cancel");	
-	});
+		$("#menu li.disabled").on(eventtype, function() {
+			if(!$isTransitioning) SFX.play("error");	
+		});
 
-	$(".btRandom, .btInvite, #friendlist li").click(function() {
-		if(!$isTransitioning) SFX.play("confirm");	
-	});
+		$("input").on(eventtype, function() {
+			if(!$isTransitioning) SFX.play("enterChat");	
+		});
 
-	$(".btStart").click(function() {
-		if(!$isTransitioning) SFX.play("featureUnlocked");	
-	});
+		$(".panel").mouseleave(function() {
+			if(!$isTransitioning && $(this).parents("#screen_Play").hasClass("invite"))
+				SFX.play("cancel");	
+		});
 
-	$(".btCancel").click(function() {
-		if(!$isTransitioning) {
-			if($("#screen_Play").hasClass("matchmaking"))
-				SFX.play("cameraMode");
-			else SFX.play("closeWindow");
-		}
-	});
+		$(".btRandom, .btInvite, #friendlist li").on(eventtype, function() {
+			if(!$isTransitioning) SFX.play("confirm");	
+		});
+
+		$(".btStart").on(eventtype, function() {
+			if(!$isTransitioning) SFX.play("featureUnlocked");	
+		});
+
+		$(".btCancel").on(eventtype, function() {
+			if(!$isTransitioning) {
+				if($("#screen_Play").hasClass("matchmaking"))
+					SFX.play("cancelMenu");
+				else SFX.play("closeWindow");
+			}
+		});
+	}
 });
