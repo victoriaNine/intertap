@@ -91,8 +91,8 @@ $(document).ready(function() {
 		});
 	});
 
-	 $("#close").on(eventtype, function() {
-		if(!$isTransitioning) $("#about").toggleClass("open");
+	 $("#close").on(eventtype, function(e) {
+		if(!$isTransitioning) $("#credits").toggleClass("open");
 	});
 
 	$("#screen_Play .btCancel").on(eventtype, function() {
