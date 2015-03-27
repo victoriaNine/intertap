@@ -327,8 +327,8 @@ html.ie10 #container.white:after {
 
 /* ABOUT BOX ---------*/
 #credits {
-  width: 100%;
-  height: 100%;
+  width: 125px;
+  height: 50px;
   z-index: 9998;
   text-align: center;
   position: absolute;
@@ -337,26 +337,14 @@ html.ie10 #container.white:after {
   bottom: 0;
   color:#FFF;
   
-  @include clipPath("polygon(94% 94%, 100% 94%, 100% 100%, 94% 100%)");
   transition: all .5s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-@media (max-width: 966px) {
-  #credits {
-    @include clipPath("polygon(88% 88%, 100% 88%, 100% 100%, 88% 100%)");
-  }
-}
-
-@media (max-width: 488px) {
-  #credits {
-    @include clipPath("polygon(85% 92%, 100% 92%, 100% 100%, 85% 100%)");
-  }
-}
-
 #credits.open {
+  width: 100%;
+  height: 100%;
   color:#222;
 
-  @include clipPath("polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)");
   transition: all .3s cubic-bezier(0.895, 0.03, 0.685, 0.22);
 }
 
@@ -432,6 +420,15 @@ html.ie10 #container.white:after {
 #credits img {
   margin: auto;
   display: block;
+
+  opacity:0;
+  transition:opacity .2s ease-out;
+}
+
+#credits.open img {
+  opacity: 1;
+
+  transition:opacity .5s .5s ease-out;
 }
 
 @media (max-width: 480px) {
