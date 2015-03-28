@@ -28,8 +28,10 @@ BufferLoader.prototype.loadBuffer = function(url, index) {
           return;
         }
         loader.bufferList[index] = buffer;
-        if (++loader.loadCount == loader.urlList.length)
+        if (++loader.loadCount == loader.urlList.length) 
           loader.onload(loader.bufferList);
+
+      	$(document).trigger("soundLoaded");
       },
       function(error) {
         console.error('decodeAudioData error', error);
@@ -50,6 +52,27 @@ BufferLoader.prototype.load = function() {
 }
 
 //===============================
+// AudioEngine CLASS
+//
+function AudioEngine() {
+//===============================
+	this.loadedFiles = 0;
+	this.audioFiles = 0;
+	this.loadedPercentage = function() {
+		return Math.ceil(this.loadedFiles * 100 / this.audioFiles);
+	};
+
+	this.init = function() {
+		BGM.init();
+		SFX.init();
+
+		this.audioFiles = BGM.filesNb() + SFX.filesNb();
+	};
+
+	this.init();
+};
+
+//===============================
 // BGM
 //
 var BGM = (function() {
@@ -57,8 +80,13 @@ var BGM = (function() {
 	var audioCtx;
 	var sourceArray = new Array();
 	var crossfadeArray = new Array();
+
+	var files = ['assets/primalTimbre.mp3',
+	      		 'assets/spiral.mp3'];
+	var filesLoaded = false;
 	var muted = false;
 	var gainTransition = false;
+
 	var primalTimbre;
 	var spiral;
 
@@ -68,9 +96,7 @@ var BGM = (function() {
 	    window.AudioContext = window.AudioContext||window.webkitAudioContext;
 	    audioCtx = new AudioContext();
 
-	    var bufferLoader = new BufferLoader(audioCtx, ['assets/primalTimbre.mp3',
-	      										   	   'assets/spiral.mp3'],
-	    				                	setSources);
+	    var bufferLoader = new BufferLoader(audioCtx, files, setSources);
 
 	  	bufferLoader.load();
 	  }
@@ -89,7 +115,8 @@ var BGM = (function() {
 
 		spiral.gainNode.gain.value = 0;
 
-		$(document).trigger("BGMloaded");
+		filesLoaded = true;
+		if(SFX.filesLoaded()) $(document).trigger("allSoundLoaded");
 	}
 
 	function createSource(buffer) {
@@ -130,19 +157,17 @@ var BGM = (function() {
 
 		if(gain1 != -1) {
 			if(gain1 - .2 >= 0) gain1 -= .2;
-			TweenMax.to(primalTimbre.gainNode.gain, 4, {value: gain1, ease: Circ.easeOut,
+			TweenMax.to(primalTimbre.gainNode.gain, 3, {value: gain1, ease: Circ.easeOut,
 				onComplete:function() {
-					isDone++;
-					if(isDone == 2) gainTransition = false;
+					if(++isDone == 2) gainTransition = false;
 				}
 			});
 		}
 	    if(gain2 != -1) {
 	    	if(gain2 - .2 >= 0) gain2 -= .2;
-	    	TweenMax.to(spiral.gainNode.gain, 4, {value: gain2, ease: Circ.easeOut,
+	    	TweenMax.to(spiral.gainNode.gain, 3, {value: gain2, ease: Circ.easeOut,
 				onComplete:function() {
-					isDone++;
-					if(isDone == 2) gainTransition = false;
+					if(++isDone == 2) gainTransition = false;
 				}
 			});
 	    }
@@ -194,6 +219,12 @@ var BGM = (function() {
 		},
 		toggleMute:function() {
 			mute("toggle");
+		},
+		filesLoaded:function() {
+			return filesLoaded;
+		},
+		filesNb:function() {
+			return files.length;
 		}
 	};
 })();
@@ -202,6 +233,20 @@ var BGM = (function() {
 var SFX = (function() {
 	var audioCtx;
 	var bufferArray = new Array();
+
+	var files = ['assets/sfx/cancel.mp3',
+			   	 'assets/sfx/cancelMenu.mp3',
+			   	 'assets/sfx/closeWindow.mp3',
+			   	 'assets/sfx/confirm.mp3',
+			   	 'assets/sfx/enterChat.mp3',
+			   	 'assets/sfx/enterInstance.mp3',
+			   	 'assets/sfx/error.mp3',
+			   	 'assets/sfx/featureUnlocked.mp3',
+			   	 'assets/sfx/hover.mp3',
+			   	 'assets/sfx/openWindow.mp3',
+			   	 'assets/sfx/play.mp3',
+			   	 'assets/sfx/switchTarget.mp3'];
+	var filesLoaded = false;
 	var muted = false;
 
 	function init() {
@@ -209,19 +254,7 @@ var SFX = (function() {
 	    window.AudioContext = window.AudioContext||window.webkitAudioContext;
 	    audioCtx = new AudioContext();
 
-	    var bufferLoader = new BufferLoader(audioCtx, ['assets/sfx/cancel.mp3',
-	      										   	   'assets/sfx/cancelMenu.mp3',
-	      										   	   'assets/sfx/closeWindow.mp3',
-	      										   	   'assets/sfx/confirm.mp3',
-	      										   	   'assets/sfx/enterChat.mp3',
-	      										   	   'assets/sfx/enterInstance.mp3',
-	      										   	   'assets/sfx/error.mp3',
-	      										   	   'assets/sfx/featureUnlocked.mp3',
-	      										   	   'assets/sfx/hover.mp3',
-	      										   	   'assets/sfx/openWindow.mp3',
-	      										   	   'assets/sfx/play.mp3',
-	      										   	   'assets/sfx/switchTarget.mp3'],
-	    				                	setBuffer);
+	    var bufferLoader = new BufferLoader(audioCtx, files, setBuffer);
 
 	  	bufferLoader.load();
 	}
@@ -230,6 +263,9 @@ var SFX = (function() {
 		for(var i = 0; i < bufferList.length; i++) {
 			bufferArray[i] = bufferList[i];
 		}
+
+		filesLoaded = true;
+		if(BGM.filesLoaded()) $(document).trigger("allSoundLoaded");
 	}
 
 	function createSource(buffer) {
@@ -282,6 +318,12 @@ var SFX = (function() {
 		},
 		toggleMute:function() {
 			mute("toggle");
+		},
+		filesLoaded:function() {
+			return filesLoaded;
+		},
+		filesNb:function() {
+			return files.length;
 		}
 	};
 })();
@@ -295,7 +337,7 @@ $(document).ready(function() {
 				$(this).toggleClass("on off");
 		});
 
-		$("#menu li, #friendlist li, button").mouseenter(function() {
+		$("#menu li, #soundSwitch, #close, #friendlist li, button").mouseenter(function() {
 			if(!$isTransitioning) {
 				if(!$(this).hasClass("btCancel") && !$(this).hasClass("selected")) SFX.play("hover");
 				else if($(this).hasClass("btCancel")) SFX.play("switchTarget");
@@ -310,6 +352,11 @@ $(document).ready(function() {
 			if(!$isTransitioning) SFX.play("error");	
 		});
 
+		$("#close").on(eventtype, function() {
+			if(!$isTransitioning && !$(this).parents("#credits").hasClass("open")) SFX.play("openWindow");
+			if(!$isTransitioning && $(this).parents("#credits").hasClass("open")) SFX.play("closeWindow");
+		});
+
 		$("input").on(eventtype, function() {
 			if(!$isTransitioning) SFX.play("enterChat");	
 		});
@@ -319,7 +366,7 @@ $(document).ready(function() {
 				SFX.play("cancel");	
 		});
 
-		$(".btRandom, .btInvite, #friendlist li").on(eventtype, function() {
+		$("#soundSwitch, .btRandom, .btInvite, #friendlist li").on(eventtype, function() {
 			if(!$isTransitioning) SFX.play("confirm");	
 		});
 

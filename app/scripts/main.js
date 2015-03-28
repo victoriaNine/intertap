@@ -24,36 +24,58 @@ var loadingArray = ["images/planet.svg",
 					"images/craters.svg",
 					"images/meteor.svg"];
 
+var audioEngine;
+
 
 $(document).ready(function() {
 	if(mobilecheck()) $("html").addClass("isMobile");
 	if(phonecheck()) $("html").addClass("isPhone");
 	if(tabletcheck()) $("html").addClass("isTablet");
 
+	TweenMax.from($("#loading img"), .75, {opacity:0});
+	TweenMax.from($("#loading .info"), .75, {bottom:"-100px", opacity:0, ease:Bounce.easeOut});
+
 	var loadedFiles = 0;
+	var totalFiles = loadingArray.length;
+	var loadedPercentage = function() {
+		return Math.ceil(loadedFiles * 100 / totalFiles);
+	}
+
 	if(!phonecheck()) {
-		BGM.init();
-		SFX.init();
+		audioEngine = new AudioEngine();
+		totalFiles += audioEngine.audioFiles;
+
+		$(document).on("soundLoaded", function() {
+			loadedFiles++;
+			$(document).trigger("fileLoaded");
+		});
 	}
 	
 	for(var i = 0; i < loadingArray.length; i++) {
 		$("<div>").load(loadingArray[i], function() {
 			loadedFiles++;
-
-			if(loadedFiles == loadingArray.length) {
-				$(document).on("BGMloaded", function() {
-					$(document).off("BGMloaded");
-
-					$requestScreen = "Menu";
-					switchScreen();
-
-					if(!phonecheck()) BGM.play();
-				});
-
-				if(phonecheck()) $(document).trigger("BGMloaded");
-			}
+			$(document).trigger("fileLoaded");
 		});
 	}
+
+	$(document).on("fileLoaded", function() {
+		TweenMax.to($("#loading .loadingBar"), .3, {width:loadedPercentage()+"%", ease:Power4.easeOut});
+		if(loadedPercentage() == 100) $(document).trigger("allFilesLoaded");
+	});
+
+	$(document).on("allFilesLoaded", function() {
+		TweenMax.to($("#loading"), 1, {opacity:0,
+			onComplete:function() {
+				$(document).off("soundLoaded allSoundLoaded fileLoaded allFilesLoaded");
+				$("body").find("#loading").remove();
+
+				$requestScreen = "Menu";
+				switchScreen();
+
+				if(!phonecheck()) BGM.play();
+			}
+		});
+	 });
 
 	// trim polyfill : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/Trim
 	if(!String.prototype.trim) {
