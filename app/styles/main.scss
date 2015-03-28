@@ -194,14 +194,6 @@ html.isPhone #soundSwitch { display: none; }
 /*=======================*/
 /* CONTAINERS
 /*=======================*/
-#uiTest {
-  width: 100%;
-  height:96px;
-  position: relative;
-  top:0;
-  background: #f8f8f8 url("../images/uiTest.jpg") center no-repeat;
-}
-
 #container {
   overflow: hidden;
   position: relative;
@@ -287,8 +279,8 @@ html.ie10 #container.white:after {
 #loading img {
   display: block;
   position: absolute;
-  left:calc(50% - 160px / 2);
-  top:calc(50% - 160px / 2);
+  left:calc(50% - 126px / 2);
+  top:calc(50% - 126px / 2);
 }
 
 #loading .info {
@@ -296,6 +288,10 @@ html.ie10 #container.white:after {
   width: 100%;
   bottom:0px;
   background:#3B3251;
+}
+
+@media (max-width: 480px) {
+  #loading .info { display: none; }
 }
 
 #loading p {

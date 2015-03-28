@@ -81,8 +81,8 @@ var BGM = (function() {
 	var sourceArray = new Array();
 	var crossfadeArray = new Array();
 
-	var files = ['assets/primalTimbre.mp3',
-	      		 'assets/spiral.mp3'];
+	var files = ['assets/bgm/primalTimbre.mp3',
+	      		 'assets/bgm/spiral.mp3'];
 	var filesLoaded = false;
 	var muted = false;
 	var gainTransition = false;
