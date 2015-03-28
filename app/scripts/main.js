@@ -18,6 +18,28 @@ var support = {animations : Modernizr.cssanimations},
 	},
 	eventtype = mobilecheck() ? 'touchend' : 'click';
 
+// Adapted slightly from Sam Dutton
+// Set name of hidden property and visibility change event
+// since some browsers only offer vendor-prefixed support
+var windowHidden, windowState, windowVisibilityChange; 
+if (typeof document.hidden !== "undefined") {
+	windowHidden = "hidden";
+	windowVisibilityChange = "visibilitychange";
+	windowState = "visibilityState";
+} else if (typeof document.mozHidden !== "undefined") {
+	windowHidden = "mozHidden";
+	windowVisibilityChange = "mozvisibilitychange";
+	windowState = "mozVisibilityState";
+} else if (typeof document.msHidden !== "undefined") {
+	windowHidden = "msHidden";
+	windowVisibilityChange = "msvisibilitychange";
+	windowState = "msVisibilityState";
+} else if (typeof document.webkitHidden !== "undefined") {
+	windowHidden = "webkitHidden";
+	windowVisibilityChange = "webkitvisibilitychange";
+	windowState = "webkitVisibilityState";
+}
+
 var loadingArray = ["images/planet.svg",
 					"images/gas.svg",
 					"images/moon.svg",
@@ -25,6 +47,8 @@ var loadingArray = ["images/planet.svg",
 					"images/meteor.svg"];
 
 var audioEngine;
+var autoMuteSound = false;
+var initReady = false;
 
 
 $(document).ready(function() {
@@ -46,8 +70,27 @@ $(document).ready(function() {
 		totalFiles += audioEngine.audioFiles;
 
 		$(document).on("soundLoaded", function() {
+			audioEngine.loadedFiles++;
 			loadedFiles++;
+
 			$(document).trigger("fileLoaded");
+		});
+
+		$(document).on(windowVisibilityChange, function() {
+			if(audioEngine.ready && initReady) {
+				if(document[windowState] == "hidden") {
+					TweenLite.lagSmoothing(0);
+
+					if(audioEngine.isMuted()) autoMuteSound = true;
+					else audioEngine.mute();
+				}
+				else {
+					TweenLite.lagSmoothing(1000, 16);
+
+					if(autoMuteSound) autoMuteSound = false;
+					else audioEngine.unmute();
+				}
+			}
 		});
 	}
 	
@@ -73,6 +116,8 @@ $(document).ready(function() {
 				switchScreen();
 
 				if(!phonecheck()) BGM.play();
+
+				initReady = true;
 			}
 		});
 	 });
@@ -330,11 +375,11 @@ function switchScreen() {
 
 	if($requestScreen == "Menu") {
 		inTransition = setTransition("screen_Menu_In");
-		if(!phonecheck()) BGM.prepareCrossfade(1,0);
+		if(!phonecheck()) BGM.prepareCrossfade(.8,0);
 	}
 	else if($requestScreen == "Play") {
 		inTransition = setTransition("screen_Play_In");
-		if(!phonecheck()) BGM.prepareCrossfade(0,1);
+		if(!phonecheck()) BGM.prepareCrossfade(0,.8);
 	}
 
 	if(outTransition) {

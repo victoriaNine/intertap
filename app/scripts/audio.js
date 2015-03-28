@@ -58,15 +58,46 @@ function AudioEngine() {
 //===============================
 	this.loadedFiles = 0;
 	this.audioFiles = 0;
-	this.loadedPercentage = function() {
-		return Math.ceil(this.loadedFiles * 100 / this.audioFiles);
-	};
+	this.muted = false;
+	this.ready = false;
 
 	this.init = function() {
 		BGM.init();
 		SFX.init();
 
 		this.audioFiles = BGM.filesNb() + SFX.filesNb();
+	};
+
+	this.loadedPercentage = function() {
+		return Math.ceil(this.loadedFiles * 100 / this.audioFiles);
+	};
+
+	this.mute = function() {
+		BGM.mute();
+		SFX.mute();
+
+		$("#soundSwitch").attr("class","off");
+		this.muted = true;
+	};
+
+	this.unmute = function() {
+		BGM.unmute();
+		SFX.unmute();
+
+		$("#soundSwitch").attr("class","on");
+		this.muted = false;
+	};
+
+	this.toggleMute = function() {
+		BGM.toggleMute();
+		SFX.toggleMute();
+
+		$("#soundSwitch").toggleClass("on off");
+		this.muted = !this.muted;
+	};
+
+	this.isMuted = function() {
+		return this.muted;
 	};
 
 	this.init();
@@ -97,7 +128,6 @@ var BGM = (function() {
 	    audioCtx = new AudioContext();
 
 	    var bufferLoader = new BufferLoader(audioCtx, files, setSources);
-
 	  	bufferLoader.load();
 	  }
 	  catch(e) {
@@ -113,10 +143,14 @@ var BGM = (function() {
 		primalTimbre = sourceArray[0];
 		spiral = sourceArray[1];
 
+		primalTimbre.gainNode.gain.value = .8;
 		spiral.gainNode.gain.value = 0;
 
 		filesLoaded = true;
-		if(SFX.filesLoaded()) $(document).trigger("allSoundLoaded");
+		if(SFX.filesLoaded()) {
+			audioEngine.ready = true;
+			$(document).trigger("allSoundLoaded");
+		}
 	}
 
 	function createSource(buffer) {
@@ -152,20 +186,24 @@ var BGM = (function() {
 	}
 
 	function setCrossfade(gain1, gain2) {
-		gainTransition = true;
 		isDone = 0;
 
 		if(gain1 != -1) {
-			if(gain1 - .2 >= 0) gain1 -= .2;
 			TweenMax.to(primalTimbre.gainNode.gain, 3, {value: gain1, ease: Circ.easeOut,
+				onStart:function() {
+					gainTransition = true;
+				},
 				onComplete:function() {
 					if(++isDone == 2) gainTransition = false;
 				}
 			});
 		}
+
 	    if(gain2 != -1) {
-	    	if(gain2 - .2 >= 0) gain2 -= .2;
 	    	TweenMax.to(spiral.gainNode.gain, 3, {value: gain2, ease: Circ.easeOut,
+	    		onStart:function() {
+					gainTransition = true;
+				},
 				onComplete:function() {
 					if(++isDone == 2) gainTransition = false;
 				}
@@ -189,7 +227,7 @@ var BGM = (function() {
 			if(state == mute) return;
 			muted = state;
 		}
-		if(state == "toggle") muted = !muted;
+		else if(state == "toggle") muted = !muted;
 
 		if(muted == true) {
 			if(!gainTransition) {
@@ -201,7 +239,9 @@ var BGM = (function() {
 		}
 		else {
 			playCrossfade();
-			if(!gainTransition) crossfadeArray = [];
+			if(!gainTransition) {
+				crossfadeArray = [];
+			}
 		}
 	}
 
@@ -219,6 +259,9 @@ var BGM = (function() {
 		},
 		toggleMute:function() {
 			mute("toggle");
+		},
+		isMuted:function() {
+			return muted;
 		},
 		filesLoaded:function() {
 			return filesLoaded;
@@ -255,7 +298,6 @@ var SFX = (function() {
 	    audioCtx = new AudioContext();
 
 	    var bufferLoader = new BufferLoader(audioCtx, files, setBuffer);
-
 	  	bufferLoader.load();
 	}
 
@@ -265,7 +307,10 @@ var SFX = (function() {
 		}
 
 		filesLoaded = true;
-		if(BGM.filesLoaded()) $(document).trigger("allSoundLoaded");
+		if(BGM.filesLoaded()) {
+			audioEngine.ready = true;
+			$(document).trigger("allSoundLoaded");
+		}
 	}
 
 	function createSource(buffer) {
@@ -276,7 +321,7 @@ var SFX = (function() {
 		source.connect(gainNode);
 	    gainNode.connect(audioCtx.destination);
 
-	    gainNode.gain.value = .4;
+	    gainNode.gain.value = .3;
 	    source.start(0);
 	}
 
@@ -304,7 +349,7 @@ var SFX = (function() {
 			if(state == mute) return;
 			muted = state;
 		}
-		if(state == "toggle") muted = !muted;
+		else if(state == "toggle") muted = !muted;
 	}
 
 	return {
@@ -319,6 +364,9 @@ var SFX = (function() {
 		toggleMute:function() {
 			mute("toggle");
 		},
+		isMuted:function() {
+			return muted;
+		},
 		filesLoaded:function() {
 			return filesLoaded;
 		},
@@ -331,10 +379,7 @@ var SFX = (function() {
 $(document).ready(function() {
 	if(!phonecheck()) {
 		$("#soundSwitch").on(eventtype, function() {
-				BGM.toggleMute();
-				SFX.toggleMute();
-
-				$(this).toggleClass("on off");
+			audioEngine.toggleMute();
 		});
 
 		$("#menu li, #soundSwitch, #close, #friendlist li, button").mouseenter(function() {

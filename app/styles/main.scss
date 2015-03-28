@@ -63,11 +63,16 @@ body, html {
   font-family: "Varela Round", sans-serif;
   color:#FFF;
   text-transform: uppercase;
-  user-select: none;
   position: absolute;
   width: 100%;
   height: 100%;
   overflow: hidden;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
 }
 
 @media (max-height: 480px) and (orientation:landscape) {
@@ -372,7 +377,7 @@ html.ie10 #container.white:after {
   letter-spacing: 8px;
 }
 
-/* ABOUT BOX ---------*/
+/* CREDITS BOX ---------*/
 #credits {
   width: 128px;
   height: 60px;
@@ -385,6 +390,12 @@ html.ie10 #container.white:after {
   color:#FFF;
   
   transition: all .5s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+@media (max-width: 480px) {
+  #credits {
+    width: 60px;
+  }
 }
 
 #credits.open {
@@ -427,6 +438,13 @@ html.ie10 #container.white:after {
   pointer-events:auto;
 }
 
+@media (max-width: 480px) {
+  #credits .contents {
+    top:0;
+    left:0; 
+  }
+}
+
 #credits h1 {
  margin:40px 0 10px !important; 
 }
@@ -443,6 +461,13 @@ html.ie10 #container.white:after {
   margin-top: 30px;
   letter-spacing: 2px;
   color:#FF7885;
+}
+
+@media (max-width: 320px) {
+  #credits h2 {
+    font-size: 20px;
+    margin-top: 20px;
+  }
 }
 
 #credits h3 {
@@ -462,6 +487,12 @@ html.ie10 #container.white:after {
 
 #credits h3:nth-of-type(2) {
   margin: 40px 0 0 0;
+}
+
+@media (max-width: 320px) {
+  #credits h3:nth-of-type(2) {
+    margin: 30px 0 0 0;
+  }
 }
 
 #credits img {
@@ -489,13 +520,20 @@ html.ie10 #container.white:after {
   color: #444;
 }
 
+@media (max-width: 320px) {
+  #credits span {
+    letter-spacing: 1px;
+    font-size: 14px;
+  }
+}
+
 #credits a {
   color:inherit;
   transition:all .2s ease-out;
 }
 
 #credits h3 a:hover {
-  letter-spacing: 2px
+  letter-spacing: 1px;
 }
 
 #credits .contents span a:hover {
