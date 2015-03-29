@@ -1175,6 +1175,10 @@ html.ie10 #container.white:after {
   @include transform("scale(1.25)");
 }
 
+#menu li.animate {
+  overflow: visible;
+}
+
 #menu li.animate span,
 .btCancel.animate span {
   @include animation("clickMenuTxt 1.5s ease-out forwards");
