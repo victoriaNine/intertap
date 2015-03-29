@@ -57,6 +57,7 @@ $(document).ready(function() {
 	if(tabletcheck()) $("html").addClass("isTablet");
 
 	TweenMax.from($("#loading img"), .75, {opacity:0});
+	TweenMax.from($("#loading img+span"), .75, {opacity:0, repeat:-1, yoyo:true});
 	TweenMax.from($("#loading .info"), .75, {bottom:"-100px", opacity:0, ease:Bounce.easeOut});
 
 	var loadedFiles = 0;

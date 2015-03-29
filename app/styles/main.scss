@@ -304,6 +304,20 @@ html.ie10 #container.white:after {
   top:calc(50% - 126px / 2);
 }
 
+#loading img+span {
+  font-size: 12px;
+  color: #F37785;
+  position: absolute;
+  width: 215px;
+  height: 12px;
+  left: calc(50% - 215px / 2);
+  top: calc(50% + (126px + 12px) / 2);
+}
+
+@media (max-width: 480px) {
+  #loading img+span { display: none; }
+}
+
 #loading .info {
   position: relative;
   width: 100%;
