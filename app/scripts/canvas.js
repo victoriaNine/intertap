@@ -59,7 +59,7 @@ var bgCanvas = (function() {
 		}
 
 		pxs = new Array();
-		maxPixies = tabletcheck() ? 50 : 25;
+		maxPixies = !phonecheck() ? 50 : 25;
 		for(var i = 0; i < maxPixies; i++) {
 			pxs[i] = new Circle();
 			pxs[i].reset();
