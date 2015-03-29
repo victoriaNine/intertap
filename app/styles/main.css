@@ -82,12 +82,6 @@ button {
   box-sizing: border-box;
   font-size: 14px; }
 
-.browsehappy a {
-  transition: letter-spacing .2s ease-out; }
-
-.browsehappy a:hover {
-  letter-spacing: 1px; }
-
 #soundSwitch {
   position: absolute;
   left: 20px;
