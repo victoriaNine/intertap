@@ -1,4 +1,8 @@
+//===============================
+// BGCANVAS
+//
 var bgCanvas = (function() {
+//===============================
 	var WIDTH;
 	var HEIGHT;
 	var canvas;
@@ -12,7 +16,6 @@ var bgCanvas = (function() {
 	var rint = 50;
 
 	var clouds;
-	var maxClouds = 1;
 
 	var lineMinLength = 50,
 		lineMaxLength = 300;
@@ -46,13 +49,13 @@ var bgCanvas = (function() {
 		meteor.src = "images/meteor.svg";
 	});
 
-	function initCanvas(onResize) {
+	function init(onResize) {
 		$(canvas).attr('width', WIDTH).attr('height',HEIGHT);
 
 		clouds = new Array();
 		clouds[0] = new Cloud(WIDTH/2, -100, 24, 25, "#453959");
 	  	for(var i = 0; i < clouds.length; i++) {
-			clouds[i].reset();
+			clouds[i].init();
 		}
 
 		pxs = new Array();
@@ -70,7 +73,7 @@ var bgCanvas = (function() {
 		WIDTH = window.innerWidth;
 		HEIGHT = window.innerHeight;
 
-		if(!mobilecheck()) initCanvas(true);
+		if(!mobilecheck()) init(true);
 	});
 
 	function changeCanvas(newCanvas) {
@@ -79,7 +82,7 @@ var bgCanvas = (function() {
 		canvasName = canvas.id;
 
 		clearInterval(drawInterval);
-		initCanvas();
+		init();
 	}
 
 	function setPositions() {
@@ -282,23 +285,21 @@ var bgCanvas = (function() {
 	}
 
 	function Cloud(startX, startY, lineNb, radius, style) {
-		this.init = function(startX, startY, lineNb, radius, style) {
-			this.currentX = startX;
-			this.currentY = startY;
-			this.lineNb = lineNb;
-			this.radius = radius;
-			this.style = style;
+		this.currentX = startX;
+		this.currentY = startY;
+		this.lineNb = lineNb;
+		this.radius = radius;
+		this.style = style;
 
-			this.strokeLength = new Array();
-			this.strokeX = new Array();
-			this.strokeX_back = new Array();
-	    	this.strokeY = new Array();
-			this.strokeY_back = new Array();
+		this.strokeLength = new Array();
+		this.strokeX = new Array();
+		this.strokeX_back = new Array();
+    	this.strokeY = new Array();
+		this.strokeY_back = new Array();
 
-			this.lineMinSpace = this.radius * 4;
-		}
+		this.lineMinSpace = this.radius * 4;
 
-		this.reset = function() {
+		this.init = function() {
 			for(var i = 0; i < this.lineNb-1; i++) {
 				var lineLength = parseInt(Math.random() * lineMaxLength);
 				lineLength = lineLength < lineMinLength ? lineMinLength : lineLength;
@@ -313,6 +314,7 @@ var bgCanvas = (function() {
 
 			for(var i = 0; i < this.lineNb-1; i++) {
 				var lineLength = parseInt(Math.random() * lineMaxLength);
+
 				if(i % 2 == 0) {
 					if(i == 0)
 						lineLength = parseInt(Math.random() * lineMaxLength * 2) + (this.strokeLength[this.lineNb-2 - i] + this.lineMinSpace);
@@ -321,14 +323,15 @@ var bgCanvas = (function() {
 						lineLength = lineLength <= (this.strokeLength[this.lineNb-2 - i] + this.lineMinSpace) ?
 				  					 (this.strokeLength[this.lineNb-2 - i] + this.lineMinSpace) : lineLength;
 
-						var totalLength = this.strokeLength[this.lineNb-1 - i] + (this.currentX - this.strokeX[this.lineNb-1 - i]) + lineLength;
+				  		var totalLength = this.currentX + lineLength + (this.strokeLength[this.lineNb-1 - i] - this.strokeX[this.lineNb-1 - i]);
 						lineLength = totalLength > (lineMaxLength * 2) ? this.lineMinSpace : lineLength;
 					}
 
 					this.currentX += lineLength;
 				}
 				else {
-					lineLength = (this.currentX - lineLength) < (this.strokeX[lineNb-2 - i] + this.lineMinSpace) ? 0 : lineLength;
+					var maxLength = this.currentX - (this.strokeX[this.lineNb-1 - i] + this.strokeLength[this.lineNb-1 - i] + this.lineMinSpace);
+					lineLength = parseInt(Math.random() * maxLength);
 					this.currentX -= lineLength;
 				}
 
@@ -348,14 +351,12 @@ var bgCanvas = (function() {
 			}
 
 			for(var i = 0; i < this.lineNb-1; i++) {
-					ctx.arc(this.strokeX_back[i], this.strokeY_back[i],this.radius,Math.PI*2.5,Math.PI*1.5, (i % 2 == 0 ? true : false));
+				ctx.arc(this.strokeX_back[i], this.strokeY_back[i],this.radius,Math.PI*2.5,Math.PI*1.5, (i % 2 == 0 ? true : false));
 			}
 
 			ctx.closePath();
 			ctx.fill();
 		}
-
-		this.init(startX, startY, lineNb, radius, style);
 	}
 
 	return {

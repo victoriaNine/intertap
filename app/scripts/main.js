@@ -104,7 +104,6 @@ $(document).ready(function() {
 				switchScreen();
 
 				if(!phonecheck()) BGM.play();
-
 				initReady = true;
 			}
 		});
