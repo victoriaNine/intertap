@@ -53,7 +53,7 @@ var bgCanvas = (function() {
 		$(canvas).attr('width', WIDTH).attr('height',HEIGHT);
 
 		clouds = new Array();
-		clouds[0] = new Cloud(WIDTH/2, -100, 24, 25, "#453959");
+		clouds[0] = new Cloud(WIDTH/2, -50, 24, 25, "#453959");
 	  	for(var i = 0; i < clouds.length; i++) {
 			clouds[i].init();
 		}
