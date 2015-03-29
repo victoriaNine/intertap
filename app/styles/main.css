@@ -906,7 +906,7 @@ html.ie10 #container.white:after {
 
 #friendlist li:hover img,
 #friendlist li.selected img {
-  margin: 8px 8px 0 0; }
+  margin: 8px 0 0 8px; }
 
 #friendlist span {
   display: inline-block;
