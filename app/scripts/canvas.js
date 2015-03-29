@@ -332,6 +332,7 @@ var bgCanvas = (function() {
 				else {
 					var maxLength = this.currentX - (this.strokeX[this.lineNb-1 - i] + this.strokeLength[this.lineNb-1 - i] + this.lineMinSpace);
 					lineLength = parseInt(Math.random() * maxLength);
+					lineLength = lineLength < 0 ? 0 : lineLength;
 					this.currentX -= lineLength;
 				}
 
