@@ -271,7 +271,7 @@
 			"file": "app/index.html",
 			"settings":
 			{
-				"buffer_size": 6172,
+				"buffer_size": 6163,
 				"line_ending": "Windows"
 			}
 		},
@@ -295,7 +295,7 @@
 			"file": "app/scripts/canvas.js",
 			"settings":
 			{
-				"buffer_size": 10653,
+				"buffer_size": 10652,
 				"line_ending": "Windows"
 			}
 		}
@@ -413,6 +413,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"maxPi",
 			"clouds",
 			"cloud",
 			"reset",
@@ -528,7 +529,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -537,15 +538,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6172,
+						"buffer_size": 6163,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5853,
-								5853
+								2973,
+								2973
 							]
 						],
 						"settings":
@@ -555,7 +556,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2626.0,
+						"translation.y": 1315.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -588,7 +589,7 @@
 						"translation.y": 1795.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -617,7 +618,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -626,15 +627,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 10653,
+						"buffer_size": 10652,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								9505,
-								9505
+								1178,
+								1178
 							]
 						],
 						"settings":
@@ -643,10 +644,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 5190.0,
+						"translation.y": 676.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
