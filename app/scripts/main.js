@@ -18,28 +18,6 @@ var support = {animations : Modernizr.cssanimations},
 	},
 	eventtype = mobilecheck() ? 'touchend' : 'click';
 
-// Adapted slightly from Sam Dutton
-// Set name of hidden property and visibility change event
-// since some browsers only offer vendor-prefixed support
-var windowHidden, windowState, windowVisibilityChange; 
-if (typeof document.hidden !== "undefined") {
-	windowHidden = "hidden";
-	windowVisibilityChange = "visibilitychange";
-	windowState = "visibilityState";
-} else if (typeof document.mozHidden !== "undefined") {
-	windowHidden = "mozHidden";
-	windowVisibilityChange = "mozvisibilitychange";
-	windowState = "mozVisibilityState";
-} else if (typeof document.msHidden !== "undefined") {
-	windowHidden = "msHidden";
-	windowVisibilityChange = "msvisibilitychange";
-	windowState = "msVisibilityState";
-} else if (typeof document.webkitHidden !== "undefined") {
-	windowHidden = "webkitHidden";
-	windowVisibilityChange = "webkitvisibilitychange";
-	windowState = "webkitVisibilityState";
-}
-
 var loadingArray = ["images/planet.svg",
 					"images/gas.svg",
 					"images/moon.svg",
@@ -77,20 +55,19 @@ $(document).ready(function() {
 			$(document).trigger("fileLoaded");
 		});
 
-		$(document).on(windowVisibilityChange, function() {
+		$(window).on("blur", function() {
 			if(audioEngine.ready && initReady) {
-				if(document[windowState] == "hidden") {
-					TweenLite.lagSmoothing(0);
+				TweenLite.lagSmoothing(0);
 
-					if(audioEngine.isMuted()) autoMuteSound = true;
-					else audioEngine.mute();
-				}
-				else {
-					TweenLite.lagSmoothing(1000, 16);
+				if(audioEngine.isMuted()) autoMuteSound = true;
+				else audioEngine.mute();
+			}
+		}).on("focus", function() {
+			if(audioEngine.ready && initReady) {
+				TweenLite.lagSmoothing(1000, 16);
 
-					if(autoMuteSound) autoMuteSound = false;
-					else audioEngine.unmute();
-				}
+				if(autoMuteSound) autoMuteSound = false;
+				else audioEngine.unmute();
 			}
 		});
 	}
@@ -108,21 +85,19 @@ $(document).ready(function() {
 	});
 
 	$(document).on("allFilesLoaded", function() {
-		var waitForVisibility = function() {
-		 	if(document[windowState] == "visible") {
+		var waitForFocus = function() {
 		 		initSite();
-		 		$(document).off(windowVisibilityChange, waitForVisibility);
-		 	}
+		 		$(window).off("focus", waitForFocus);
 		};
 
-		if(document[windowState] == "visible") initSite();
-		else $(document).on(windowVisibilityChange, waitForVisibility);
+		if(document["hasFocus"]()) initSite();
+		else $(window).on("focus", waitForFocus);
 	});
 
 	function initSite() {
 		TweenMax.to($("#loading"), 1, {opacity:0,
 			onComplete:function() {
-				$(document).off("soundLoaded allSoundLoaded fileLoaded allFilesLoaded");
+				$(document).off("soundLoaded allSoundsLoaded fileLoaded allFilesLoaded");
 				$("body").find("#loading").remove();
 
 				$requestScreen = "Menu";

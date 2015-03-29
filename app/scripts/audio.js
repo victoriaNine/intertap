@@ -52,7 +52,7 @@ BufferLoader.prototype.load = function() {
 }
 
 //===============================
-// AudioEngine CLASS
+// AUDIOENGINE CLASS
 //
 function AudioEngine() {
 //===============================
@@ -116,7 +116,7 @@ var BGM = (function() {
 	      		 'assets/bgm/spiral.mp3'];
 	var filesLoaded = false;
 	var muted = false;
-	var gainTransition = false;
+	var crossfading = false;
 
 	var primalTimbre;
 	var spiral;
@@ -149,7 +149,7 @@ var BGM = (function() {
 		filesLoaded = true;
 		if(SFX.filesLoaded()) {
 			audioEngine.ready = true;
-			$(document).trigger("allSoundLoaded");
+			$(document).trigger("allSoundsLoaded");
 		}
 	}
 
@@ -187,25 +187,20 @@ var BGM = (function() {
 
 	function setCrossfade(gain1, gain2) {
 		var isDone = 0;
+		crossfading = true;
 
 		if(gain1 != -1) {
 			TweenMax.to(primalTimbre.gainNode.gain, 3, {value: gain1, ease: Circ.easeOut,
-				onStart:function() {
-					gainTransition = true;
-				},
 				onComplete:function() {
-					if(++isDone == 2) gainTransition = false;
+					if(++isDone == 2) crossfading = false;
 				}
 			});
 		}
 
 	    if(gain2 != -1) {
 	    	TweenMax.to(spiral.gainNode.gain, 3, {value: gain2, ease: Circ.easeOut,
-	    		onStart:function() {
-					gainTransition = true;
-				},
 				onComplete:function() {
-					if(++isDone == 2) gainTransition = false;
+					if(++isDone == 2) crossfading = false;
 				}
 			});
 	    }
@@ -218,7 +213,7 @@ var BGM = (function() {
 	function playCrossfade() {
 		if(!muted && crossfadeArray.length > 0) {
 			setCrossfade(crossfadeArray[0][0], crossfadeArray[0][1]);
-			if(!gainTransition) crossfadeArray.shift();
+			if(!crossfading) crossfadeArray.shift();
 		}
 	}
 
@@ -230,7 +225,7 @@ var BGM = (function() {
 		else if(state == "toggle") muted = !muted;
 
 		if(muted == true) {
-			if(!gainTransition) {
+			if(!crossfading) {
 				crossfadeArray = [];
 				prepareCrossfade(primalTimbre.gainNode.gain.value, spiral.gainNode.gain.value);
 			}
@@ -239,7 +234,7 @@ var BGM = (function() {
 		}
 		else {
 			playCrossfade();
-			if(!gainTransition) {
+			if(!crossfading) {
 				crossfadeArray = [];
 			}
 		}
@@ -268,6 +263,9 @@ var BGM = (function() {
 		},
 		filesNb:function() {
 			return files.length;
+		},
+		isCrossfading:function() {
+			return crossfading;
 		}
 	};
 })();
@@ -309,7 +307,7 @@ var SFX = (function() {
 		filesLoaded = true;
 		if(BGM.filesLoaded()) {
 			audioEngine.ready = true;
-			$(document).trigger("allSoundLoaded");
+			$(document).trigger("allSoundsLoaded");
 		}
 	}
 
