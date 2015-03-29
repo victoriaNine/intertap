@@ -186,7 +186,7 @@ var BGM = (function() {
 	}
 
 	function setCrossfade(gain1, gain2) {
-		isDone = 0;
+		var isDone = 0;
 
 		if(gain1 != -1) {
 			TweenMax.to(primalTimbre.gainNode.gain, 3, {value: gain1, ease: Circ.easeOut,

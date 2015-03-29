@@ -21,7 +21,7 @@ body, html {
   user-select: none; }
 
 @media (max-height: 480px) and (orientation: landscape) {
-  body:before {
+  body:not(.softKeyboardFix):before {
     content: "";
     width: 100%;
     height: 100%;
@@ -29,7 +29,7 @@ body, html {
     background: #FFF;
     z-index: 9998; }
 
-  body:after {
+  body:not(.softKeyboardFix):after {
     content: "Please rotate \A your device";
     width: 100%;
     height: 100%;

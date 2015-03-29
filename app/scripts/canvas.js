@@ -67,14 +67,10 @@ var bgCanvas = (function() {
 	}
 
 	$(window).resize(function() {
-		if($("input:focus").length < 1) {
-			WIDTH = window.innerWidth;
-			HEIGHT = window.innerHeight;
+		WIDTH = window.innerWidth;
+		HEIGHT = window.innerHeight;
 
-			initCanvas(true);
-		}
-		if($("#container").scrollTop() > 0)
-			TweenMax.to($("#container"), .5, {scrollTop:0, ease:Back.easeIn});
+		if(!mobilecheck()) initCanvas(true);
 	});
 
 	function changeCanvas(newCanvas) {

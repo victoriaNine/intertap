@@ -107,10 +107,15 @@ $(document).ready(function() {
 	});
 
 	$(document).on("allFilesLoaded", function() {
+		var waitForVisibility = function() {
+		 	if(document[windowState] == "visible") {
+		 		initSite();
+		 		$(document).off(windowVisibilityChange, waitForVisibility);
+		 	}
+		};
+
 		if(document[windowState] == "visible") initSite();
-		else $(document).on(windowVisibilityChange, function() {
-			 	 if(document[windowState] == "visible") initSite();
-			 });
+		else $(document).on(windowVisibilityChange, waitForVisibility);
 	});
 
 	function initSite() {
@@ -138,7 +143,7 @@ $(document).ready(function() {
 				return this.replace(rtrim, '');
 			};
 		})();
-	}
+	};
 
 	if(navigator.appName == 'Microsoft Internet Explorer') {
         var agent = navigator.userAgent;
@@ -147,9 +152,29 @@ $(document).ready(function() {
             var version = parseFloat( RegExp.$1 );
             $("html").addClass("ie"+version);
         }
-    }
+    };
 
-	 $("#menu li").each(function() {
+    // Softkeyboard fix
+	if(mobilecheck()) {
+		$(window).resize(function() {
+			if(window.orientation % 180 == 0) {
+				$("input").attr('disabled', false);
+
+				if((window.innerWidth >= window.innerHeight) && ($("input:focus").length > 0))
+					$("body").addClass("softKeyboardFix");
+			}
+
+			if(window.orientation % 180 != 0) {
+				$("body").removeClass("softKeyboardFix");
+				$("input").attr('disabled', true);
+			}
+
+			if($("#container").scrollTop() > 0)
+				TweenMax.to($("#container"), .5, {scrollTop:0, ease:Back.easeIn});
+		});
+	};
+
+	$("#menu li").each(function() {
 		var el = this;
 
 		$(el).on(eventtype, function() {
@@ -165,7 +190,7 @@ $(document).ready(function() {
 		});
 	});
 
-	 $("#close").on(eventtype, function(e) {
+	$("#close").on(eventtype, function(e) {
 		if(!$isTransitioning) $("#credits").toggleClass("open");
 	});
 
