@@ -1,175 +1,169 @@
 <!doctype html>
 <html class="no-js">
-  <head>
-    <meta charset="utf-8">
-    <title>Intertap</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <link rel="shortcut icon" href="images/favicon.ico" />
-    <link rel="stylesheet" href="styles/reset.css">
-    <link rel="stylesheet" href="styles/jquery.mCustomScrollbar.css">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="styles/main.css">
-  </head>
-  <body>
-    <!--[if lt IE 10]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/" target="_blank">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
-    <div id="container" class="white">
-      <div id="loading">
-        <div>
-          <img src="images/planet.gif">
-          <span>Please turn your speakers on</span>
-        </div>
-        <div class="info">
-          <div class="loadingBar"></div>
-          <p>This experiment is based on the Behance project <a href="http://on.be.net/1CkUX2c" target="_blank">Intertap Game Conception</a> by Eskov Ernst and Ilya Burakov<br />Developement and design by <a href="http://orion9.net" target="_blank">Victoria Nine</a></p>
-        </div>
-      </div>
-      <div class="modalContainer"><div class="modalContent"></div></div>
-      <div id="credits">
-        <div class="contents">
-          <h1>Intertap</h1>
-          <img src="images/planet.gif">
-          <h3><a href="http://on.be.net/1CkUX2c" target="_blank">Based on Intertap Game Conception @ Behance</a></h3>
-          <br>
-          <h2>Developement + Design</h2>
-          <span><a href="http://orion9.net" target="_blank">Victoria Nine</a></span><br>
-          <h2>Music</h2>
-          <span>"Primal Timbre" and "Spiral"<br>by Masayoshi Soken</span><br>
-          <h2>SFX</h2>
-          <span>Final Fantasy XIV and Phantasy Star Online 2</span>
-          <h3>Thanks for checking out!</h3>
-        </div>
-        <div id="close">
-          <span class='open'>Credits</span>
-          <span class='close'>Close</span>
-          <i class="fa fa-plus-circle"></i>
-        </div>
-      </div>
-      <div id="soundSwitch" class="on">
-        <div class="on"><i class="fa fa-bell"></i><span>ON</span></div>
-        <div class="off"><i class="fa fa-bell-slash"></i><span>OFF</span></div>
-      </div>
-      <section id="screen_Menu" class="screen">
-        <canvas id="canvas_Menu" class="canvasBG"></canvas>
-        <div class="contents">
-          <h1>Intertap</h1>
-          <ul id="menu">
-            <li><span>Play online</span></li>
-            <hr />
-            <li class="disabled"><span>Profile</span></li>
-            <hr />
-            <li class="disabled"><span>Settings</span></li>
-            <hr />
-            <li class="disabled"><span>About</span></li>
-            <hr />
-          </ul>
-        </div>
-      </section>
-      <section id="screen_Play" class="screen matchmaking">
-        <canvas id="canvas_Play" class="canvasBG"></canvas>
-        <div class="contents">
-          <div class="header matchmaking">
-            <h1>Matchmaking</h1>
-            <h2>You can play as one, as well as with your friends</h2>
-          </div>
-          <div class="header invite">
-            <h1>Select a friend</h1>
-          </div>
-          <div class="header registration">
-            <h1>Registration</h1>
-            <h2>Before you start playing, you need to sign up</h2>
-          </div>
-          <div class="panel">
-            <div class="matchmaking">
-              <button class="btRandom">Random game</button>
-              <button class="btInvite">Send an invite to game</button>
-            </div>
-            <div class="invite">
-              <ul id="friendlist">
-                <li>
-                  <img src="http://orion9.net/img/about/picture.png">
-                  <span>Victoria Nine</span>
-                </li>
-                <li>
-                  <img src="https://s3.amazonaws.com/uifaces/faces/twitter/mlane/128.jpg">
-                  <span>Alistair Blake</span>
-                </li>
-                <li>
-                  <img src="https://s3.amazonaws.com/uifaces/faces/twitter/syswarren/128.jpg">
-                  <span>Maddeline Brooks</span>
-                </li>
-                <li>
-                  <img src="https://s3.amazonaws.com/uifaces/faces/twitter/mlane/128.jpg">
-                  <span>Sandor Chaplin</span>
-                </li>
-                <li>
-                  <img src="https://s3.amazonaws.com/uifaces/faces/twitter/syswarren/128.jpg">
-                  <span>Cassandra Chambelain</span>
-                </li>
-                <li>
-                  <img src="https://s3.amazonaws.com/uifaces/faces/twitter/mlane/128.jpg">
-                  <span>Tommen Forester</span>
-                </li>
-                <li>
-                  <img src="http://orion9.net/img/about/picture.png">
-                  <span>Riza Hawkeye</span>
-                </li>
-              </ul>
-            </div>
-            <div class="registration">
-              <span>
-                <input type="text"></input>
-                <label>
-                  <span class="title">Your name</span>
-                  <span class="fa-lg">
-                    <i class="fa fa-user"></i>
-                  </span>
-                </label>
-              </span>
-              <span>
-                <input type="email"></input>
-                <label>
-                  <span class="title">Email</span>
-                  <span class="fa-lg">
-                    <i class="fa fa-at"></i>
-                  </span>
-                </label>
-              </span>
-              <span>
-                <input type="password"></input>
-                <label>
-                  <span class="title">Password</span>
-                  <span class="fa-lg">
-                    <i class="fa fa-asterisk"></i>
-                  </span>
-                </label>
-              </span>
-              <span>
-                <input type="password"></input>
-                <label>
-                  <span class="title">Repeat password</span>
-                  <span class="fa-stack fa-lg">
-                    <i class="fa fa-asterisk fa-stack-1x"></i>
-                    <i class="fa fa-question-circle fa-stack-1x"></i>
-                  </span>
-                </label>
-              </span>
-            </div>
-            <button class="btStart matchmaking registration">Start</button>
-          </div>
-          <button class="btCancel"><span>Cancel</span></button>
-        </div>
-      </section>
-    </div>
-    <script src="bower_components/modernizr/modernizr.js"></script>
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/jquery-ui/jquery-ui.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
-    <script src="scripts/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="scripts/canvas.js"></script>
-    <script src="scripts/audio.js"></script>
-    <script src="scripts/main.js"></script>
-</body>
+	<head>
+		<meta charset="utf-8">
+		<title>Intertap</title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+		<link rel="shortcut icon" href="images/favicon.ico">
+		<link rel="stylesheet" href="styles/reset.css">
+		<link rel="stylesheet" href="styles/jquery.mCustomScrollbar.css">
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="styles/main.css">
+	</head>
+	<body>
+		<!--[if lt IE 10]>
+		<p class="browsehappy">You are using an outdated browser. Please <a href="http://browsehappy.com/" target="_blank">upgrade your browser</a> to improve your experience.</p>
+		<![endif]-->
+		<div id="container" class="white">
+			<div id="loading">
+				<div>
+					<img src="images/planet.gif">
+					<span>Please turn your speakers on</span>
+				</div>
+				<div class="info">
+					<div class="loadingBar"></div>
+					<p>This experiment is based on the Behance project <a href="http://on.be.net/1CkUX2c" target="_blank">Intertap Game Conception</a> by Eskov Ernst and Ilya Burakov<br />Developement and design by <a href="http://orion9.net" target="_blank">Victoria Nine</a></p>
+				</div>
+			</div>
+			<div class="modalContainer"><div class="modalContent"></div></div>
+			<div id="credits">
+				<div class="contents">
+					<h1>Intertap</h1>
+					<img src="images/planet.gif">
+					<h3><a href="http://on.be.net/1CkUX2c" target="_blank">Based on Intertap Game Conception @ Behance</a></h3>
+					<br>
+					<h2>Developement + Design</h2>
+					<span><a href="http://orion9.net" target="_blank">Victoria Nine</a></span><br>
+					<h2>Music</h2>
+					<span>"Primal Timbre" and "Spiral"<br>by Masayoshi Soken</span><br>
+					<h2>SFX</h2>
+					<span>Final Fantasy XIV and Phantasy Star Online 2</span>
+					<h3>Thanks for checking out!</h3>
+				</div>
+				<div id="close">
+					<span class='open'>Credits</span>
+					<span class='close'>Close</span>
+					<i class="fa fa-plus-circle"></i>
+				</div>
+			</div>
+			<div id="soundSwitch" class="on">
+				<div class="on"><i class="fa fa-bell"></i><span>ON</span></div>
+				<div class="off"><i class="fa fa-bell-slash"></i><span>OFF</span></div>
+			</div>
+			<section id="screen_Menu" class="screen">
+				<canvas id="canvas_Menu" class="canvasBG"></canvas>
+				<div class="contents">
+					<h1>Intertap</h1>
+					<ul id="menu">
+						<li><span>Play online</span></li>
+						<hr />
+						<li class="disabled"><span>Profile</span></li>
+						<hr />
+						<li class="disabled"><span>Settings</span></li>
+						<hr />
+						<li class="disabled"><span>About</span></li>
+						<hr />
+					</ul>
+				</div>
+			</section>
+			<section id="screen_Play" class="screen matchmaking">
+				<canvas id="canvas_Play" class="canvasBG"></canvas>
+				<div class="contents">
+					<div class="header matchmaking">
+						<h1>Matchmaking</h1>
+						<h2>You can play as one, as well as with your friends</h2>
+					</div>
+					<div class="header invite">
+						<h1>Select a friend</h1>
+					</div>
+					<div class="header registration">
+						<h1>Registration</h1>
+						<h2>Before you start playing, you need to sign up</h2>
+					</div>
+					<div class="panel">
+						<div class="matchmaking">
+							<button class="btRandom">Random game</button>
+							<button class="btInvite">Send an invite to game</button>
+						</div>
+						<div class="invite">
+							<ul id="friendlist">
+								<li>
+									<img src="http://orion9.net/img/about/picture.png">
+									<span>Victoria Nine</span>
+								</li>
+								<li>
+									<img src="https://s3.amazonaws.com/uifaces/faces/twitter/mlane/128.jpg">
+									<span>Alistair Blake</span>
+								</li>
+								<li>
+									<img src="https://s3.amazonaws.com/uifaces/faces/twitter/syswarren/128.jpg">
+									<span>Maddeline Brooks</span>
+								</li>
+								<li>
+									<img src="https://s3.amazonaws.com/uifaces/faces/twitter/mlane/128.jpg">
+									<span>Sandor Chaplin</span>
+								</li>
+								<li>
+									<img src="https://s3.amazonaws.com/uifaces/faces/twitter/syswarren/128.jpg">
+									<span>Cassandra Chambelain</span>
+								</li>
+								<li>
+									<img src="https://s3.amazonaws.com/uifaces/faces/twitter/mlane/128.jpg">
+									<span>Tommen Forester</span>
+								</li>
+								<li>
+									<img src="http://orion9.net/img/about/picture.png">
+									<span>Riza Hawkeye</span>
+								</li>
+							</ul>
+						</div>
+						<div class="registration">
+							<span>
+								<input type="text"></input>
+								<label>
+									<span class="title">Your name</span>
+									<span class="fa-lg"><i class="fa fa-user"></i></span>
+								</label>
+							</span>
+							<span>
+								<input type="email"></input>
+								<label>
+									<span class="title">Email</span>
+									<span class="fa-lg"><i class="fa fa-at"></i></span>
+								</label>
+							</span>
+							<span>
+								<input type="password"></input>
+								<label>
+									<span class="title">Password</span>
+									<span class="fa-lg"><i class="fa fa-asterisk"></i></span>
+								</label>
+							</span>
+							<span>
+								<input type="password"></input>
+								<label>
+									<span class="title">Repeat password</span>
+									<span class="fa-stack fa-lg">
+										<i class="fa fa-asterisk fa-stack-1x"></i>
+										<i class="fa fa-question-circle fa-stack-1x"></i>
+									</span>
+								</label>
+							</span>
+						</div>
+						<button class="btStart matchmaking registration">Start</button>
+					</div>
+					<button class="btCancel"><span>Cancel</span></button>
+				</div>
+			</section>
+		</div>
+		<script src="bower_components/modernizr/modernizr.js"></script>
+		<script src="bower_components/jquery/dist/jquery.js"></script>
+		<script src="bower_components/jquery-ui/jquery-ui.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+		<script src="scripts/jquery.mCustomScrollbar.concat.min.js"></script>
+		<script src="scripts/canvas.js"></script>
+		<script src="scripts/audio.js"></script>
+		<script src="scripts/main.js"></script>
+	</body>
 </html>
