@@ -905,6 +905,14 @@ html.ie10 #container.white:after {
   margin: 8px 16px 0 0;
   transition: all .15s ease-out; }
 
+#friendlist.selecting li:not(.selected) img {
+  filter: url("../images/filters.svg#grayscale");
+  -webkit-filter: grayscale(1);
+  -moz-filter: grayscale(1);
+  -ms-filter: grayscale(1);
+  -o-filter: grayscale(1);
+  filter: grayscale(1); }
+
 #friendlist li:hover img,
 #friendlist li.selected img {
   margin: 8px 0 0 8px; }

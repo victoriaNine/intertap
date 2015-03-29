@@ -22,7 +22,8 @@ var loadingArray = ["images/planet.svg",
 					"images/gas.svg",
 					"images/moon.svg",
 					"images/craters.svg",
-					"images/meteor.svg"];
+					"images/meteor.svg",
+					"images/filters.svg"];
 
 var audioEngine;
 var autoMuteSound = false;
