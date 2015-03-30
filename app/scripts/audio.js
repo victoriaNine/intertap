@@ -404,9 +404,9 @@ $(document).ready(function() {
 			if(!$isTransitioning) SFX.play("enterChat");	
 		});
 
-		$(".panel").mouseleave(function() {
-			if(!$isTransitioning && $(this).parents("#screen_Play").hasClass("invite"))
-				SFX.play("cancel");	
+		$(".panel").on("unselect mouseleave", function(e) {
+			if(!$isTransitioning && $(this).find("#friendlist").hasClass("selecting") || e.type == "unselect")
+				SFX.play("cancel");
 		});
 
 		$("#soundSwitch, .btRandom, .btInvite, #friendlist li").on(eventtype, function() {

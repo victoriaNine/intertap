@@ -87,11 +87,11 @@ $(document).ready(function() {
 
 	$(document).on("allFilesLoaded", function() {
 		var waitForFocus = function() {
-		 		initSite();
-		 		$(window).off("focus", waitForFocus);
+				tabletcheck() ? initBGM() : initSite();
+			 	$(window).off("focus", waitForFocus);
 		};
 
-		if(document["hasFocus"]()) initSite();
+		if(document["hasFocus"]()) tabletcheck() ? initBGM() : initSite();
 		else $(window).on("focus", waitForFocus);
 	});
 
@@ -106,6 +106,25 @@ $(document).ready(function() {
 
 				if(!phonecheck()) BGM.play();
 				initReady = true;
+			}
+		});
+	}
+
+	function initBGM() {
+		TweenMax.to($("#loading img+span"), .75, {opacity:0, 
+			onComplete: function() {
+				$("#loading img+span").html("Tap once to launch the music");
+				TweenMax.to($("#loading img+span"), .75, {opacity:1});
+
+				var playBGM = function() {
+					BGM.play();
+					$("body").off(eventtype, playBGM);
+
+					initSite();
+					$(window).off("focus", waitForFocus);
+				};
+
+				$("body").on(eventtype, playBGM);
 			}
 		});
 	}
@@ -294,6 +313,7 @@ $(document).ready(function() {
 			}
 
 			$(this).off(eventtype, cancelSelectMobile);
+			$(".panel").trigger("unselect");
 		};
 
 		$(el).on(eventtype, function() {

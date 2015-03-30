@@ -73,7 +73,7 @@ var bgCanvas = (function() {
 		WIDTH = window.innerWidth;
 		HEIGHT = window.innerHeight;
 
-		if(!mobilecheck()) init(true);
+		if(!phonecheck()) init(true);
 	});
 
 	function changeCanvas(newCanvas) {
