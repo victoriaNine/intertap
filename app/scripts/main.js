@@ -147,7 +147,7 @@ $(document).ready(function() {
     };
 
     // Softkeyboard fix
-	if(mobilecheck()) {
+	if(phonecheck()) {
 		$(window).resize(function() {
 			if(window.orientation % 180 == 0) {
 				$("input").attr('disabled', false);
