@@ -145,6 +145,7 @@ button {
 	z-index: 9997;
 	cursor: pointer;
 	width: 60px;
+	height: 16px;
 
 	transition:color .2s ease-out;
 }
@@ -394,7 +395,7 @@ html.ie10 #container.white:after {
 	bottom: 0;
 	color:#FFF;
 
-	transition: all .5s cubic-bezier(0.165, 0.84, 0.44, 1);
+	transition: all .3s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 @media (max-width: 480px) {
@@ -406,7 +407,7 @@ html.ie10 #container.white:after {
 	height: 100%;
 	color:#222;
 
-	transition: all .3s cubic-bezier(0.895, 0.03, 0.685, 0.22);
+	transition: all .35s cubic-bezier(0.895, 0.03, 0.685, 0.22);
 }
 
 #credits:before {
@@ -419,14 +420,14 @@ html.ie10 #container.white:after {
 	bottom:0;
 	pointer-events:none;
 
-	transition: all .6s cubic-bezier(0.165, 0.84, 0.44, 1);
+	transition: all .5s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 #credits.open:before {
 	width: 100%;
 	height: 100%;
 
-	transition: all .28s cubic-bezier(0.895, 0.03, 0.685, 0.22);
+	transition: all .3s cubic-bezier(0.895, 0.03, 0.685, 0.22);
 }
 
 #credits .contents {
@@ -435,10 +436,14 @@ html.ie10 #container.white:after {
 	text-align: left;
 	position: fixed;
 	pointer-events:none;
+	opacity: 0;
+	transition: opacity 0s .5s linear;
 }
 
 #credits.open .contents {
 	pointer-events:auto;
+	opacity: 1;
+	transition: none;
 }
 
 @media (max-width: 480px) {
