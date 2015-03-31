@@ -39,6 +39,14 @@
 	transform: #{$str};
 }
 
+@mixin transition($str) {
+	-webkit-transition: -webkit-#{$str};
+	-moz-transition: -moz-#{$str};
+	-ms-transition: -ms-#{$str};
+	-o-transition: -o-#{$str};
+	transition: #{$str};
+}
+
 
 /*=======================*/
 /* GENERAL RULES
