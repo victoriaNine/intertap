@@ -375,54 +375,52 @@ var SFX = (function() {
 })();
 
 $(document).ready(function() {
-	if(!phonecheck()) {
-		$("#soundSwitch").on(eventtype, function() {
-			audioEngine.toggleMute();
-		});
+	$("#soundSwitch").on(eventtype, function() {
+		audioEngine.toggleMute();
+	});
 
-		$("#menu li, #soundSwitch, #close, #friendlist li, button").mouseenter(function() {
-			if(!$isTransitioning) {
-				if(!$(this).hasClass("btCancel") && !$(this).hasClass("selected")) SFX.play("hover");
-				else if($(this).hasClass("btCancel")) SFX.play("switchTarget");
-			}
-		});
+	$("#menu li, #soundSwitch, #close, #friendlist li, button").mouseenter(function() {
+		if(!$isTransitioning) {
+			if(!$(this).hasClass("btCancel") && !$(this).hasClass("selected")) SFX.play("hover");
+			else if($(this).hasClass("btCancel")) SFX.play("switchTarget");
+		}
+	});
 
-		$("#menu li").eq(0).on(eventtype, function() {
-			if(!$isTransitioning) SFX.play("play");	
-		});
+	$("#menu li").eq(0).on(eventtype, function() {
+		if(!$isTransitioning) SFX.play("play");	
+	});
 
-		$("#menu li.disabled").on(eventtype, function() {
-			if(!$isTransitioning) SFX.play("error");	
-		});
+	$("#menu li.disabled").on(eventtype, function() {
+		if(!$isTransitioning) SFX.play("error");	
+	});
 
-		$("#close").on(eventtype, function() {
-			if(!$isTransitioning && !$(this).parents("#credits").hasClass("open")) SFX.play("openWindow");
-			if(!$isTransitioning && $(this).parents("#credits").hasClass("open")) SFX.play("closeWindow");
-		});
+	$("#close").on(eventtype, function() {
+		if(!$isTransitioning && !$(this).parents("#credits").hasClass("open")) SFX.play("openWindow");
+		if(!$isTransitioning && $(this).parents("#credits").hasClass("open")) SFX.play("closeWindow");
+	});
 
-		$("input").on(eventtype, function() {
-			if(!$isTransitioning) SFX.play("enterChat");	
-		});
+	$("input").on(eventtype, function() {
+		if(!$isTransitioning) SFX.play("enterChat");	
+	});
 
-		$(".panel").on("unselect mouseleave", function(e) {
-			if(!$isTransitioning && $(this).find("#friendlist").hasClass("selecting") || e.type == "unselect")
-				SFX.play("cancel");
-		});
+	$(".panel").on("unselect mouseleave", function(e) {
+		if(!$isTransitioning && $(this).find("#friendlist").hasClass("selecting") || e.type == "unselect")
+			SFX.play("cancel");
+	});
 
-		$("#soundSwitch, .btRandom, .btInvite, #friendlist li").on(eventtype, function() {
-			if(!$isTransitioning) SFX.play("confirm");	
-		});
+	$("#soundSwitch, .btRandom, .btInvite, #friendlist li").on(eventtype, function() {
+		if(!$isTransitioning) SFX.play("confirm");	
+	});
 
-		$(".btStart").on(eventtype, function() {
-			if(!$isTransitioning) SFX.play("featureUnlocked");	
-		});
+	$(".btStart").on(eventtype, function() {
+		if(!$isTransitioning) SFX.play("featureUnlocked");	
+	});
 
-		$(".btCancel").on(eventtype, function() {
-			if(!$isTransitioning) {
-				if($("#screen_Play").hasClass("matchmaking"))
-					SFX.play("cancelMenu");
-				else SFX.play("closeWindow");
-			}
-		});
-	}
+	$(".btCancel").on(eventtype, function() {
+		if(!$isTransitioning) {
+			if($("#screen_Play").hasClass("matchmaking"))
+				SFX.play("cancelMenu");
+			else SFX.play("closeWindow");
+		}
+	});
 });

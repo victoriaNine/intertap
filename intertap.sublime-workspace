@@ -271,7 +271,7 @@
 			"file": "app/index.html",
 			"settings":
 			{
-				"buffer_size": 6163,
+				"buffer_size": 5975,
 				"line_ending": "Windows"
 			}
 		},
@@ -279,7 +279,15 @@
 			"file": "app/styles/main.scss",
 			"settings":
 			{
-				"buffer_size": 20223,
+				"buffer_size": 20462,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/images/filters.svg",
+			"settings":
+			{
+				"buffer_size": 144,
 				"line_ending": "Windows"
 			}
 		},
@@ -287,7 +295,7 @@
 			"file": "app/scripts/main.js",
 			"settings":
 			{
-				"buffer_size": 19185,
+				"buffer_size": 19212,
 				"line_ending": "Windows"
 			}
 		},
@@ -295,7 +303,7 @@
 			"file": "app/scripts/canvas.js",
 			"settings":
 			{
-				"buffer_size": 10652,
+				"buffer_size": 10703,
 				"line_ending": "Windows"
 			}
 		}
@@ -329,6 +337,7 @@
 	[
 		"/E/labs/intertap",
 		"/E/labs/intertap/app",
+		"/E/labs/intertap/app/images",
 		"/E/labs/intertap/app/scripts",
 		"/E/labs/intertap/app/styles",
 		"/E/labs/intertap/bower_components",
@@ -529,7 +538,7 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 4,
 			"sheets":
 			[
 				{
@@ -538,15 +547,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6163,
+						"buffer_size": 5975,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2973,
-								2973
+								3762,
+								3762
 							]
 						],
 						"settings":
@@ -556,10 +565,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1315.0,
+						"translation.y": 1344.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -568,15 +577,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 20223,
+						"buffer_size": 20462,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2610,
-								2610
+								15209,
+								15209
 							]
 						],
 						"settings":
@@ -586,7 +595,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1795.0,
+						"translation.y": 15844.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
@@ -594,19 +603,47 @@
 				},
 				{
 					"buffer": 2,
-					"file": "app/scripts/main.js",
+					"file": "app/images/filters.svg",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 19185,
+						"buffer_size": 144,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								13671,
-								13671
+								136,
+								136
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/XML/XML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app/scripts/main.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 19212,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								962,
+								962
 							]
 						],
 						"settings":
@@ -618,24 +655,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 4,
 					"file": "app/scripts/canvas.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 10652,
+						"buffer_size": 10703,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1178,
-								1178
+								8767,
+								8767
 							]
 						],
 						"settings":
@@ -644,7 +681,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 676.0,
+						"translation.y": 5390.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,

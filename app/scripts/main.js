@@ -45,33 +45,31 @@ $(document).ready(function() {
 		return Math.ceil(loadedFiles * 100 / totalFiles);
 	}
 
-	if(!phonecheck()) {
-		audioEngine = new AudioEngine();
-		totalFiles += audioEngine.audioFiles;
+	audioEngine = new AudioEngine();
+	totalFiles += audioEngine.audioFiles;
 
-		$(document).on("soundLoaded", function() {
-			audioEngine.loadedFiles++;
-			loadedFiles++;
+	$(document).on("soundLoaded", function() {
+		audioEngine.loadedFiles++;
+		loadedFiles++;
 
-			$(document).trigger("fileLoaded");
-		});
+		$(document).trigger("fileLoaded");
+	});
 
-		$(window).on("blur", function() {
-			if(audioEngine.ready && initReady) {
-				TweenLite.lagSmoothing(0);
+	$(window).on("blur", function() {
+		if(audioEngine.ready && initReady) {
+			TweenLite.lagSmoothing(0);
 
-				if(audioEngine.isMuted()) autoMuteSound = true;
-				else audioEngine.mute();
-			}
-		}).on("focus", function() {
-			if(audioEngine.ready && initReady) {
-				TweenLite.lagSmoothing(1000, 16);
+			if(audioEngine.isMuted()) autoMuteSound = true;
+			else audioEngine.mute();
+		}
+	}).on("focus", function() {
+		if(audioEngine.ready && initReady) {
+			TweenLite.lagSmoothing(1000, 16);
 
-				if(autoMuteSound) autoMuteSound = false;
-				else audioEngine.unmute();
-			}
-		});
-	}
+			if(autoMuteSound) autoMuteSound = false;
+			else audioEngine.unmute();
+		}
+	});
 	
 	for(var i = 0; i < loadingArray.length; i++) {
 		$("<div>").load(loadingArray[i], function() {
@@ -87,11 +85,11 @@ $(document).ready(function() {
 
 	$(document).on("allFilesLoaded", function() {
 		var waitForFocus = function() {
-				tabletcheck() ? initBGM() : initSite();
+				mobilecheck() ? initBGM() : initSite();
 			 	$(window).off("focus", waitForFocus);
 		};
 
-		if(document["hasFocus"]()) tabletcheck() ? initBGM() : initSite();
+		if(document["hasFocus"]()) mobilecheck() ? initBGM() : initSite();
 		else $(window).on("focus", waitForFocus);
 	});
 
@@ -104,7 +102,7 @@ $(document).ready(function() {
 				$requestScreen = "Menu";
 				switchScreen();
 
-				if(!phonecheck()) BGM.play();
+				if(!mobilecheck()) BGM.play();
 				initReady = true;
 			}
 		});
@@ -113,7 +111,7 @@ $(document).ready(function() {
 	function initBGM() {
 		TweenMax.to($("#loading img+span"), .75, {opacity:0, 
 			onComplete: function() {
-				$("#loading img+span").html("Tap once to launch the music");
+				$("#loading img+span").html("Tap to launch the experience");
 				TweenMax.to($("#loading img+span"), .75, {opacity:1});
 
 				var playBGM = function() {
@@ -121,7 +119,6 @@ $(document).ready(function() {
 					$("body").off(eventtype, playBGM);
 
 					initSite();
-					$(window).off("focus", waitForFocus);
 				};
 
 				$("body").on(eventtype, playBGM);
@@ -187,6 +184,7 @@ $(document).ready(function() {
 
 	$("#close").on(eventtype, function(e) {
 		if(!$isTransitioning) $("#credits").toggleClass("open");
+		console.log(e);
 	});
 
 	$("#screen_Play .btCancel").on(eventtype, function() {
@@ -232,7 +230,7 @@ $(document).ready(function() {
 								var modalContent  = "<i class=\"fa fa-rocket\"></i>";
 		    					    modalContent += "<span>Let's play!</span>";
 
-		    					if(!phonecheck()) SFX.play("enterInstance");
+		    					SFX.play("enterInstance");
 		    					$(".modalContent").empty().html(modalContent).fadeIn(500, function() {
 							    	setTimeout(function() {
 										$(".modalContainer").removeClass("open");
@@ -310,10 +308,10 @@ $(document).ready(function() {
 			if($(e.target).closest('.panel').length < 1) {
 				$("#friendlist li").removeClass("selected");
 				$("#friendlist").removeClass("selecting");
+				$(".panel").trigger("unselect");
 			}
 
 			$(this).off(eventtype, cancelSelectMobile);
-			$(".panel").trigger("unselect");
 		};
 
 		$(el).on(eventtype, function() {
@@ -403,11 +401,11 @@ function switchScreen() {
 
 	if($requestScreen == "Menu") {
 		inTransition = setTransition("screen_Menu_In");
-		if(!phonecheck()) BGM.prepareCrossfade(.8,0);
+		BGM.prepareCrossfade(.8,0);
 	}
 	else if($requestScreen == "Play") {
 		inTransition = setTransition("screen_Play_In");
-		if(!phonecheck()) BGM.prepareCrossfade(0,.8);
+		BGM.prepareCrossfade(0,.8);
 	}
 
 	if(outTransition) {
@@ -430,7 +428,7 @@ function switchScreen() {
 			$isTransitioning = false;
 		});
 
-		if(!phonecheck()) BGM.playCrossfade();
+		BGM.playCrossfade();
 	}, transitionDelay);
 }
 
@@ -444,7 +442,7 @@ function switchPlayScreen(outScreen, inScreen, callback) {
 
 			clearProps(outTransition);
 			inTransition.play();
-			if(!phonecheck()) SFX.play("openWindow");
+			SFX.play("openWindow");
 		}
 	});
 
